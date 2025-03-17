@@ -3,6 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --bg-page: #e8f0f2;
+  --color-red: #eb7575;
 }
 
 @theme inline {
@@ -24,4 +26,13 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-barlow);
+}
+.tech-border {
+  position: relative;
+  border: 2px solid #00eaff; /* Màu viền chính */
+  border-radius: 10px;
+  box-shadow: 0 0 2px #00eaff, 0 0 2px #7d2aff, 0 0 3px #7d2aff;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
 }
