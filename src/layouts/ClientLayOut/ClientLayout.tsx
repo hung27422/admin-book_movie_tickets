@@ -1,14 +1,27 @@
 "use client";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Sidebar from "../Sidebar/Sidebar";
 import Navbar from "../Navbar/Navbar";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "@/contexts/AuthContextProvider/AuthContextProvider";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
+  const { authState } = useContext(AuthContext);
   const pathName = usePathname();
+  const router = useRouter();
+  console.log({ authState });
+
+  useEffect(() => {
+    if (!authState.isAuthenticated) {
+      router.push("/login"); // Chỉ chạy một lần
+    } else {
+      router.push("/");
+    }
+  }, [authState.isAuthenticated, router]);
+
   if (pathName === "/login") {
     return <>{children}</>;
   }
-  console.log(pathName);
 
   return (
     <div className="bg-white grid grid-cols-12 gap-2">
