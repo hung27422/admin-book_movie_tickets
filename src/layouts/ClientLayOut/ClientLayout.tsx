@@ -28,9 +28,9 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       <div className="col-span-2 bg-white h-screen">
         <Sidebar />
       </div>
-      <div className="col-span-10 bg-[var(--bg-page)] py-2 px-10">
+      <div className="col-span-10 bg-[var(--bg-page)] py-2 px-10 ">
         <Navbar />
-        <div>{children}</div>
+        <div className="mt-8 p-2 bg-white rounded-md">{children}</div>
       </div>
     </div>
   );

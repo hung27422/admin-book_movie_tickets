@@ -6,8 +6,10 @@ interface TextFieldProps {
   value?: string | number;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   helperText?: string;
+  type?: string;
+  size?: "small" | "medium";
 }
-function TextFieldInput({ label, name, value, helperText, onChange }: TextFieldProps) {
+function TextFieldInput({ label, name, value, helperText, type, size, onChange }: TextFieldProps) {
   return (
     <TextField
       className="w-full"
@@ -19,6 +21,8 @@ function TextFieldInput({ label, name, value, helperText, onChange }: TextFieldP
       onChange={onChange}
       variant="outlined"
       helperText={helperText}
+      type={type}
+      size={size}
     />
   );
 }
