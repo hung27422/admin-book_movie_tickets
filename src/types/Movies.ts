@@ -16,5 +16,10 @@ export interface IMovie {
   status: string;
   createdAt?: Date;
   updatedAt?: Date;
+  user?: {
+    _id: string;
+    username: string;
+    fullName: string;
+  };
   __v?: number;
 }

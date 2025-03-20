@@ -16,7 +16,27 @@ function useMovies() {
       throw error;
     }
   };
-  return { movies, error, addMovie };
+  const updateMovie = async (id: string, movie: IMovie) => {
+    try {
+      const updatedMovie = await movieServices.updateMovie(id, movie);
+      mutate(); // Cập nhật dữ liệu ngay lập tức
+      console.log({ updatedMovie });
+      return updatedMovie;
+    } catch (error) {
+      console.error("Lỗi khi cập nhật phim:", error);
+      throw error;
+    }
+  };
+  const deleteMovie = async (id: string) => {
+    try {
+      await movieServices.deleteMovie(id);
+      mutate(); // Cập nhật dữ liệu ngay lập tức
+    } catch (error) {
+      console.error("Lỗi khi xóa phim:", error);
+      throw error;
+    }
+  };
+  return { movies, error, addMovie, updateMovie, deleteMovie };
 }
 
 export default useMovies;
