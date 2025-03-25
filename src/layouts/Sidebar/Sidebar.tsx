@@ -4,6 +4,7 @@ import Link from "next/link";
 import Logo from "../../assets/img/Logo.png";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import MovieIcon from "@mui/icons-material/Movie";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { usePathname } from "next/navigation";
 const menus = [
   {
@@ -17,6 +18,12 @@ const menus = [
     title: "Phim",
     icon: <MovieIcon />,
     href: "/movies",
+  },
+  {
+    id: "3",
+    title: "Rạp",
+    icon: <LocationOnIcon />,
+    href: "/cinemas",
   },
 ];
 function Sidebar() {

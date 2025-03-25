@@ -118,7 +118,7 @@ export default function UpdateMovieModal({ movie: movieData }: UpdateMovieModalP
             component="h2"
             sx={{ letterSpacing: 2, fontWeight: "bold", fontSize: "30px", textAlign: "center" }}
           >
-            THÊM PHIM
+            CẬP NHẬT PHIM
           </Typography>
           <Box id="modal-modal-description" sx={{ mt: 2 }}>
             <div className="grid grid-cols-2 gap-4">
@@ -205,12 +205,7 @@ export default function UpdateMovieModal({ movie: movieData }: UpdateMovieModalP
               </div>
             </div>
             <div className="flex items-center justify-center mt-4 gap-2">
-              <Button
-                onClick={handleUpdateMovie}
-                title="Thêm"
-                variant="contained"
-                color="primary"
-              />
+              <Button onClick={handleUpdateMovie} title="Sửa" variant="contained" color="primary" />
               <Button onClick={handleClose} title="Đóng" variant="contained" color="error" />
             </div>
           </Box>

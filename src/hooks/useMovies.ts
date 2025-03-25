@@ -16,6 +16,7 @@ function useMovies() {
       throw error;
     }
   };
+
   const updateMovie = async (id: string, movie: IMovie) => {
     try {
       const updatedMovie = await movieServices.updateMovie(id, movie);
@@ -27,6 +28,7 @@ function useMovies() {
       throw error;
     }
   };
+
   const deleteMovie = async (id: string) => {
     try {
       await movieServices.deleteMovie(id);
@@ -36,6 +38,7 @@ function useMovies() {
       throw error;
     }
   };
+
   return { movies, error, addMovie, updateMovie, deleteMovie };
 }
 
