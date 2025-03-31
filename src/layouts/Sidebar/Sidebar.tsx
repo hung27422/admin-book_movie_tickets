@@ -5,6 +5,7 @@ import Logo from "../../assets/img/Logo.png";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import LiveTvIcon from "@mui/icons-material/LiveTv";
 import { usePathname } from "next/navigation";
 const menus = [
   {
@@ -24,6 +25,18 @@ const menus = [
     title: "Rạp",
     icon: <LocationOnIcon />,
     href: "/cinemas",
+  },
+  {
+    id: "4",
+    title: "Phòng Chiếu",
+    icon: <LiveTvIcon />,
+    href: "/rooms",
+  },
+  {
+    id: "5",
+    title: "Suất chiếu",
+    icon: <LocationOnIcon />,
+    href: "/showtimes",
   },
 ];
 function Sidebar() {
@@ -54,7 +67,11 @@ function Sidebar() {
                 path === menu.href ? "bg-[#F2C2C2]" : "bg-[#dde8ea]"
               }`}
             >
-              <div className={`${path === menu.href ? "text-[#eb7575]" : "bg-[#dde8ea]"}`}>
+              <div
+                className={`${
+                  path === menu.href ? "text-[#eb7575]" : "bg-[#dde8ea]"
+                } leading-[16px]`}
+              >
                 {menu.icon}
               </div>
               <div className="ml-2">{menu.title}</div>
