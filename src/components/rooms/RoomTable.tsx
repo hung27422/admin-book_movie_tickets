@@ -50,9 +50,7 @@ export default function RoomTable({ rooms }: MovieTableProps) {
           {rooms.map((room) => {
             return (
               <StyledTableRow key={room._id}>
-                <StyledTableCell align="center" sx={{ display: "flex", justifyContent: "center" }}>
-                  {room?.name}
-                </StyledTableCell>
+                <StyledTableCell align="center">{room?.name}</StyledTableCell>
                 <StyledTableCell align="center">{room?.seats?.length}</StyledTableCell>
                 <StyledTableCell align="center">{room.type}</StyledTableCell>
 

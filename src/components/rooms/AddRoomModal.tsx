@@ -70,7 +70,7 @@ export default function AddRoomModal() {
   const handleAddRoom = async () => {
     const movieData = await addRoom(room);
     if (movieData.success) {
-      showSnackbar("Thêm phim thành công", "success");
+      showSnackbar("Thêm phòng thành công", "success");
       handleClose();
     }
   };
@@ -126,7 +126,7 @@ export default function AddRoomModal() {
   );
   return (
     <div>
-      <Button onClick={handleOpen} title="Thêm Phim" variant="contained" color="primary" />
+      <Button onClick={handleOpen} title="Thêm Phòng" variant="contained" color="primary" />
       <Modal
         open={open}
         aria-labelledby="modal-modal-title"

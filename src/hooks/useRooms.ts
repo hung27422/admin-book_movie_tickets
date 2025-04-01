@@ -2,8 +2,12 @@ import roomsServices from "@/services/roomsServices";
 import { IRoom } from "@/types/Rooms";
 import useSWR from "swr";
 
-function useRooms() {
+interface useRoomsProps {
+  idCinema?: string;
+}
+function useRooms({ idCinema }: useRoomsProps = {}) {
   const { data: rooms, error, mutate } = useSWR<IRoom[]>("/rooms");
+  const { data: getRoomsByCinemaId } = useSWR<IRoom[]>(idCinema ? `/rooms/${idCinema}` : null);
 
   const addRoom = async (room: IRoom) => {
     try {
@@ -36,7 +40,7 @@ function useRooms() {
       throw error;
     }
   };
-  return { rooms, error, addRoom, deleteRoom, updateRoom };
+  return { rooms, getRoomsByCinemaId, error, addRoom, deleteRoom, updateRoom };
 }
 
 export default useRooms;
