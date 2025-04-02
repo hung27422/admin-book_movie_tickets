@@ -30,7 +30,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       </div>
       <div className="col-span-10 bg-[var(--bg-page)] py-2 px-10 ">
         <Navbar />
-        <div className="mt-8 p-2 bg-white rounded-md">{children}</div>
+        <div className="mt-8 p-2  rounded-md">{children}</div>
       </div>
     </div>
   );

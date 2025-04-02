@@ -89,7 +89,6 @@ export default function UpdateShowTimeModal({ showtime: showTimeData }: UpdateSh
   const handleUpdateShowTime = async () => {
     // Kiểm tra chỉ những trường đã thay đổi
     const updatedShowTime = { ...showtime };
-
     // Nếu không thay đổi cinema, room, hoặc movie, giữ nguyên các giá trị mặc định
     if (showtime.cinemaId === showTimeData.cinemaId) {
       updatedShowTime.cinemaId = showTimeData.cinemaId; // Giữ giá trị cũ
@@ -110,12 +109,7 @@ export default function UpdateShowTimeModal({ showtime: showTimeData }: UpdateSh
 
   return (
     <div>
-      <Button
-        onClick={handleOpen}
-        title="Cập nhật Suất Chiếu"
-        variant="contained"
-        color="primary"
-      />
+      <Button onClick={handleOpen} title="Sửa" variant="contained" color="primary" />
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <Typography

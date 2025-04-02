@@ -8,8 +8,8 @@ interface ShowTimeActionButtonProp {
 function ShowTimeActionButton({ showtime }: ShowTimeActionButtonProp) {
   return (
     <div className="flex items-center justify-center gap-2">
-      <DeleteShowTimeModal showtime={showtime} />
       <UpdateShowTimeModal showtime={showtime} />
+      <DeleteShowTimeModal showtime={showtime} />
     </div>
   );
 }
