@@ -31,9 +31,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 interface MovieTableProps {
-  rooms: IRoom[];
+  rooms: IRoom[] | undefined;
 }
 export default function RoomTable({ rooms }: MovieTableProps) {
+  if (!rooms) return <div>Loading...</div>;
+  if (rooms.length === 0) return <div>Không có phòng nào</div>;
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 600 }} aria-label="customized table">

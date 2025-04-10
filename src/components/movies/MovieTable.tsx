@@ -33,9 +33,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 interface MovieTableProps {
-  movies: IMovie[];
+  movies: IMovie[] | undefined;
 }
-export default function MovieTable({ movies }: MovieTableProps) {
+function MovieTable({ movies }: MovieTableProps) {
+  if (!movies) return <div>Loading...</div>;
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 600 }} aria-label="customized table">
@@ -51,7 +52,7 @@ export default function MovieTable({ movies }: MovieTableProps) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {movies.map((movie) => {
+          {movies?.map((movie) => {
             let type = "";
             if (movie.status === "NOWSHOWING") type = "Đang chiếu";
             if (movie.status === "COMINGSOON") type = "Sắp chiếu";
@@ -88,3 +89,4 @@ export default function MovieTable({ movies }: MovieTableProps) {
     </TableContainer>
   );
 }
+export default React.memo(MovieTable);

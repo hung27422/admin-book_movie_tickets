@@ -1,9 +1,12 @@
 import movieServices from "@/services/movieServices";
 import { IMovie } from "@/types/Movies";
 import useSWR from "swr";
-
-function useMovies() {
+interface useMoviesProps {
+  title?: string;
+}
+function useMovies({ title }: useMoviesProps = {}) {
   const { data: movies, error, mutate } = useSWR<IMovie[]>("/movies");
+  const { data: dataSearchMovies } = useSWR<IMovie[]>(`/movies/search?title=${title}`);
 
   const addMovie = async (movie: IMovie) => {
     try {
@@ -39,7 +42,7 @@ function useMovies() {
     }
   };
 
-  return { movies, error, addMovie, updateMovie, deleteMovie };
+  return { movies, dataSearchMovies, error, addMovie, updateMovie, deleteMovie };
 }
 
 export default useMovies;

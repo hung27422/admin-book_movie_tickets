@@ -34,7 +34,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 interface CinemasTable {
   cinemas: ICinemas[];
 }
-export default function CinemasTable({ cinemas }: CinemasTable) {
+function CinemasTable({ cinemas }: CinemasTable) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 600 }} aria-label="customized table">
@@ -83,3 +83,4 @@ export default function CinemasTable({ cinemas }: CinemasTable) {
     </TableContainer>
   );
 }
+export default React.memo(CinemasTable);

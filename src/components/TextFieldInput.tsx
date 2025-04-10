@@ -1,4 +1,5 @@
 import { TextField } from "@mui/material";
+import React from "react";
 
 interface TextFieldProps {
   label: string;
@@ -9,7 +10,16 @@ interface TextFieldProps {
   type?: string;
   size?: "small" | "medium";
 }
-function TextFieldInput({ label, name, value, helperText, type, size, onChange }: TextFieldProps) {
+
+function TextFieldInputComponent({
+  label,
+  name,
+  value,
+  helperText,
+  type,
+  size,
+  onChange,
+}: TextFieldProps) {
   return (
     <TextField
       className="w-full"
@@ -27,4 +37,5 @@ function TextFieldInput({ label, name, value, helperText, type, size, onChange }
   );
 }
 
+const TextFieldInput = React.memo(TextFieldInputComponent);
 export default TextFieldInput;

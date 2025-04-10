@@ -1,9 +1,12 @@
 import showtimeServices from "@/services/showtimeServices";
 import { IShowTime } from "@/types/ShowTime";
 import useSWR from "swr";
-
-function useShowTime() {
+interface useShowTimeProps {
+  idRoom?: string;
+}
+function useShowTime({ idRoom }: useShowTimeProps = {}) {
   const { data: showtimes, error, mutate } = useSWR<IShowTime[]>("/showtimes");
+  const { data: getShowTimeByRoomId } = useSWR<IShowTime[]>(`/showtimes/room/${idRoom}`);
 
   const addShowTime = async (showtime: IShowTime) => {
     try {
@@ -38,6 +41,7 @@ function useShowTime() {
   };
   return {
     showtimes,
+    getShowTimeByRoomId,
     error,
     addShowTime,
     deleteShowtime,

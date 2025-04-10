@@ -2,8 +2,12 @@ import cinemasServices from "@/services/cinemasServices";
 import { ICinemas } from "@/types/Cinemas";
 import useSWR from "swr";
 
-function useCinemas() {
+interface useCinemasProps {
+  name?: string;
+}
+function useCinemas({ name }: useCinemasProps = {}) {
   const { data: cinemas, error, mutate } = useSWR<ICinemas[]>("/cinemas");
+  const { data: dataCinemaByName } = useSWR<ICinemas[]>(`/cinemas/search?name=${name}`);
 
   const addCinema = async (cinema: ICinemas) => {
     try {
@@ -38,7 +42,7 @@ function useCinemas() {
       throw error;
     }
   };
-  return { cinemas, error, addCinema, updateCinema, deleteCinema };
+  return { cinemas, dataCinemaByName, error, addCinema, updateCinema, deleteCinema };
 }
 
 export default useCinemas;
