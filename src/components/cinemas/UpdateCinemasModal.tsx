@@ -38,7 +38,7 @@ export default function UpdateCinemasModal({ cinema: cinemaData }: UpdateCinemas
     image: cinemaData.image,
     cinemaCode: cinemaData.cinemaCode,
     location: cinemaData.location,
-    phone: cinemaData.location,
+    phone: cinemaData.phone,
   });
 
   // function

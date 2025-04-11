@@ -81,7 +81,7 @@ export default function UpdateRoomModal({ room: roomData }: UpdateRoomModalProps
             component="h2"
             sx={{ letterSpacing: 2, fontWeight: "bold", fontSize: "30px", textAlign: "center" }}
           >
-            CẬP NHẬT PHIM
+            CẬP NHẬT PHÒNG
           </Typography>
           <Box id="modal-modal-description" sx={{ mt: 2 }}>
             <div className="">

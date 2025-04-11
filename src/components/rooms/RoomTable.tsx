@@ -42,7 +42,7 @@ export default function RoomTable({ rooms }: MovieTableProps) {
         <TableHead>
           <TableRow>
             <StyledTableCell align="center">Tên Phòng</StyledTableCell>
-
+            <StyledTableCell align="center">Rạp</StyledTableCell>
             <StyledTableCell align="center">Số ghế</StyledTableCell>
             <StyledTableCell align="center">Loại phòng</StyledTableCell>
             <StyledTableCell align="center">Hành động</StyledTableCell>
@@ -53,6 +53,7 @@ export default function RoomTable({ rooms }: MovieTableProps) {
             return (
               <StyledTableRow key={room._id}>
                 <StyledTableCell align="center">{room?.name}</StyledTableCell>
+                <StyledTableCell align="center">{room?.cinemaId.name}</StyledTableCell>
                 <StyledTableCell align="center">{room?.seats?.length}</StyledTableCell>
                 <StyledTableCell align="center">{room.type}</StyledTableCell>
 

@@ -3,10 +3,14 @@ import { IShowTime } from "@/types/ShowTime";
 import useSWR from "swr";
 interface useShowTimeProps {
   idRoom?: string;
+  idMovie?: string;
 }
-function useShowTime({ idRoom }: useShowTimeProps = {}) {
+function useShowTime({ idRoom, idMovie }: useShowTimeProps = {}) {
   const { data: showtimes, error, mutate } = useSWR<IShowTime[]>("/showtimes");
   const { data: getShowTimeByRoomId } = useSWR<IShowTime[]>(`/showtimes/room/${idRoom}`);
+  const { data: getShowTimeByRoomIdAndMovieID } = useSWR<IShowTime[]>(
+    `/showtimes/filter?roomId=${idRoom}&movieId=${idMovie}`
+  );
 
   const addShowTime = async (showtime: IShowTime) => {
     try {
@@ -42,6 +46,7 @@ function useShowTime({ idRoom }: useShowTimeProps = {}) {
   return {
     showtimes,
     getShowTimeByRoomId,
+    getShowTimeByRoomIdAndMovieID,
     error,
     addShowTime,
     deleteShowtime,

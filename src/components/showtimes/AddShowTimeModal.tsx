@@ -220,7 +220,7 @@ export default function AddShowTimeModal() {
           renderInput={(params) => (
             <TextField
               {...params}
-              label="Chọn phòng để thêm suất chiếu"
+              label="Chọn phim để thêm suất chiếu"
               slotProps={{
                 htmlInput: {
                   ...params.inputProps,
@@ -248,7 +248,7 @@ export default function AddShowTimeModal() {
             component="h2"
             sx={{ letterSpacing: 2, fontWeight: "bold", fontSize: "30px", textAlign: "center" }}
           >
-            THÊM PHÒNG
+            THÊM SUẤT CHIẾU
           </Typography>
           <Box id="modal-modal-description" sx={{ mt: 2 }}>
             <div className="mt-2">{selectIdCinemas}</div>
