@@ -87,12 +87,12 @@ function ShowTime() {
   const [idMovieState, setIdMovieState] = useState("");
   //hooks
   const { showtimes, getShowTimeByRoomIdAndMovieID, getShowTimeByRoomId } = useShowTime({
-    idMovie: idMovieState,
-    idRoom: idRoomState,
+    idMovie: idMovieState ?? "",
+    idRoom: idRoomState ?? "",
   });
   const { cinemas } = useCinemas();
   const { movies } = useMovies();
-  const { getRoomsByCinemaId } = useRooms({ idCinema: idCinemaState });
+  const { getRoomsByCinemaId } = useRooms({ idCinema: idCinemaState ?? "" });
 
   const data = getShowTimeByRoomIdAndMovieID
     ? getShowTimeByRoomIdAndMovieID

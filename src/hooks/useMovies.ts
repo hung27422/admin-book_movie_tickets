@@ -6,7 +6,7 @@ interface useMoviesProps {
 }
 function useMovies({ title }: useMoviesProps = {}) {
   const { data: movies, error, mutate } = useSWR<IMovie[]>("/movies");
-  const { data: dataSearchMovies } = useSWR<IMovie[]>(`/movies/search?title=${title}`);
+  const { data: dataSearchMovies } = useSWR<IMovie[]>(title && `/movies/search?title=${title}`);
 
   const addMovie = async (movie: IMovie) => {
     try {

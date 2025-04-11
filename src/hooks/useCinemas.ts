@@ -7,7 +7,7 @@ interface useCinemasProps {
 }
 function useCinemas({ name }: useCinemasProps = {}) {
   const { data: cinemas, error, mutate } = useSWR<ICinemas[]>("/cinemas");
-  const { data: dataCinemaByName } = useSWR<ICinemas[]>(`/cinemas/search?name=${name}`);
+  const { data: dataCinemaByName } = useSWR<ICinemas[]>(name && `/cinemas/search?name=${name}`);
 
   const addCinema = async (cinema: ICinemas) => {
     try {
