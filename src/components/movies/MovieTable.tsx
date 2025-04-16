@@ -48,6 +48,7 @@ function MovieTable({ movies }: MovieTableProps) {
             <StyledTableCell align="center">Quốc gia</StyledTableCell>
             <StyledTableCell align="center">Trạng thái</StyledTableCell>
             <StyledTableCell align="center">Ngày chiếu</StyledTableCell>
+            <StyledTableCell align="center">Số ngày chiếu</StyledTableCell>
             <StyledTableCell align="center">Hành động</StyledTableCell>
           </TableRow>
         </TableHead>
@@ -78,6 +79,7 @@ function MovieTable({ movies }: MovieTableProps) {
                 <StyledTableCell align="center">
                   {formatReleaseDate(movie.releaseDate)}
                 </StyledTableCell>
+                <StyledTableCell align="center">{movie.numberMovieScreening} ngày</StyledTableCell>
                 <StyledTableCell align="center">
                   <MovieActionButton movie={movie} />
                 </StyledTableCell>

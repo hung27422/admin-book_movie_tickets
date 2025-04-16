@@ -44,7 +44,7 @@ export default function AddMovieModal() {
     description: "",
     duration: 0,
     genre: "",
-    releaseDate: "",
+    releaseDate: dayjs().format("YYYY-MM-DD"),
     director: "",
     cast: "",
     poster: "",
@@ -54,6 +54,7 @@ export default function AddMovieModal() {
     country: "",
     caption: "",
     status: "NOWSHOWING",
+    numberMovieScreening: 0,
   });
   const [releaseDate, setReleaseDate] = React.useState<dayjs.Dayjs | null>(dayjs());
   // function
@@ -62,12 +63,10 @@ export default function AddMovieModal() {
   };
   const handleDateChange = (newDate: dayjs.Dayjs | null) => {
     setReleaseDate(newDate);
-    if (newDate) {
-      setMovie((prevMovie) => ({
-        ...prevMovie,
-        releaseDate: newDate.format("YYYY-MM-DD"),
-      }));
-    }
+    setMovie((prevMovie) => ({
+      ...prevMovie,
+      releaseDate: newDate ? newDate.format("YYYY-MM-DD") : today, // Nếu không chọn, dùng ngày hiện tại
+    }));
   };
   const handleAddMovie = async () => {
     const movieData = await addMovie(movie);
@@ -129,7 +128,6 @@ export default function AddMovieModal() {
                   sx={{ marginTop: "8px", width: "100%" }}
                   label="Ngày phát hành"
                   name="releaseDate"
-                  defaultValue={dayjs(today)}
                   value={releaseDate}
                   onChange={handleDateChange}
                 />
@@ -147,6 +145,12 @@ export default function AddMovieModal() {
                 <TextFieldInput onChange={handleChangeValueMovie} name="ageRate" label="Độ tuổi" />
                 <TextFieldInput onChange={handleChangeValueMovie} name="country" label="Quốc gia" />
                 <TextFieldInput onChange={handleChangeValueMovie} name="caption" label="Phụ đề" />
+                <TextFieldInput
+                  onChange={handleChangeValueMovie}
+                  name="numberMovieScreening"
+                  label="Số ngày chiếu"
+                  type="number"
+                />
                 <div className="mt-2">{select}</div>
               </div>
             </div>

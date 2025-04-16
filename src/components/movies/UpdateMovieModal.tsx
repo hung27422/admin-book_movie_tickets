@@ -52,6 +52,7 @@ export default function UpdateMovieModal({ movie: movieData }: UpdateMovieModalP
     country: movieData.country,
     caption: movieData.caption,
     status: movieData.status,
+    numberMovieScreening: movieData.numberMovieScreening,
   });
   const [releaseDate, setReleaseDate] = React.useState<dayjs.Dayjs | null>(
     movieData.releaseDate ? dayjs(movieData.releaseDate) : null
@@ -200,6 +201,12 @@ export default function UpdateMovieModal({ movie: movieData }: UpdateMovieModalP
                   onChange={handleChangeValueMovie}
                   name="caption"
                   label="Phụ đề"
+                />
+                <TextFieldInput
+                  value={movie.numberMovieScreening}
+                  onChange={handleChangeValueMovie}
+                  name="numberMovieScreening"
+                  label="Số ngày chiếu"
                 />
                 <div className="mt-2">{select}</div>
               </div>

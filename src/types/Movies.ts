@@ -14,6 +14,7 @@ export interface IMovie {
   country: string;
   caption: string;
   status: string;
+  numberMovieScreening: number;
   createdAt?: Date;
   updatedAt?: Date;
   user?: {
