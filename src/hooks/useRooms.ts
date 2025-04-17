@@ -7,7 +7,9 @@ interface useRoomsProps {
 }
 function useRooms({ idCinema }: useRoomsProps = {}) {
   const { data: rooms, error, mutate } = useSWR<IRoom[]>("/rooms");
-  const { data: getRoomsByCinemaId } = useSWR<IRoom[]>(idCinema ? `/rooms/${idCinema}` : null);
+  const { data: getRoomsByCinemaId } = useSWR<IRoom[]>(
+    idCinema ? `/rooms?cinemaId=${idCinema}` : null
+  );
 
   const addRoom = async (room: IRoom) => {
     try {

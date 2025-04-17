@@ -45,6 +45,7 @@ export default function AddShowTimeModal() {
     endTime: "",
     price: 0,
     availableSeats: 0,
+    seatPricing: { DOUBLE: 0, SINGLE: 1 },
   });
   // MUI selected
   const handleSelectIdCinema = (event: React.SyntheticEvent, value: ICinemas | null) => {
@@ -70,6 +71,8 @@ export default function AddShowTimeModal() {
   };
   // hooks
   const { addShowTime } = useShowTime();
+  console.log(showtime.cinemaId);
+
   const { getRoomsByCinemaId } = useRooms({ idCinema: showtime.cinemaId });
   const { cinemas } = useCinemas();
   const { movies } = useMovies();
@@ -255,40 +258,71 @@ export default function AddShowTimeModal() {
             <div className="mt-2">{selectIdRoom}</div>
             <div className="mt-2">{selectIdMovie}</div>
 
-            <div className="col-span-1">
-              <DateTimePicker
-                label="Select Date"
-                name="startTime"
-                onChange={(newValue) => {
-                  setShowTime((prevShowTime) => ({
-                    ...prevShowTime,
-                    startTime: newValue ? newValue.toISOString() : "",
-                  }));
-                }}
-                slots={{ textField: TextField }}
-                slotProps={{ textField: { label: "Giờ bắt đầu" } }}
-                ampm={false}
-                sx={{ width: "100%", marginTop: "8px" }}
-              />
-              <DateTimePicker
-                label="Select Date"
-                name="endTime"
-                onChange={(newValue) => {
-                  setShowTime((prevShowTime) => ({
-                    ...prevShowTime,
-                    endTime: newValue ? newValue.toISOString() : "",
-                  }));
-                }}
-                slots={{ textField: TextField }}
-                slotProps={{ textField: { label: "Giờ kết thúc" } }}
-                ampm={false}
-                sx={{ width: "100%", marginTop: "8px" }}
-              />
+            <div className="">
+              <div className="flex items-center gap-2">
+                <DateTimePicker
+                  label="Select Date"
+                  name="startTime"
+                  onChange={(newValue) => {
+                    setShowTime((prevShowTime) => ({
+                      ...prevShowTime,
+                      startTime: newValue ? newValue.toISOString() : "",
+                    }));
+                  }}
+                  slots={{ textField: TextField }}
+                  slotProps={{ textField: { label: "Giờ bắt đầu" } }}
+                  ampm={false}
+                  sx={{ width: "100%", marginTop: "8px" }}
+                />
+                <DateTimePicker
+                  label="Select Date"
+                  name="endTime"
+                  onChange={(newValue) => {
+                    setShowTime((prevShowTime) => ({
+                      ...prevShowTime,
+                      endTime: newValue ? newValue.toISOString() : "",
+                    }));
+                  }}
+                  slots={{ textField: TextField }}
+                  slotProps={{ textField: { label: "Giờ kết thúc" } }}
+                  ampm={false}
+                  sx={{ width: "100%", marginTop: "8px" }}
+                />
+              </div>
               <TextFieldInput
                 onChange={handleChangeValueShowTime}
                 name="price"
                 label="Nhập giá vé"
               />
+              <div className="flex items-center gap-2">
+                <TextFieldInput
+                  onChange={(e) =>
+                    setShowTime((prevShowTime) => ({
+                      ...prevShowTime,
+                      seatPricing: {
+                        ...prevShowTime.seatPricing,
+                        SINGLE: Number(e.target.value),
+                      },
+                    }))
+                  }
+                  value={1}
+                  name="SINGLE"
+                  label="% Giá ghế đơn"
+                />
+                <TextFieldInput
+                  onChange={(e) =>
+                    setShowTime((prevShowTime) => ({
+                      ...prevShowTime,
+                      seatPricing: {
+                        ...prevShowTime.seatPricing,
+                        DOUBLE: Number(e.target.value),
+                      },
+                    }))
+                  }
+                  name="DOUBLE"
+                  label="% Giá ghế đôi"
+                />
+              </div>
               <TextFieldInput
                 onChange={handleChangeValueShowTime}
                 name="availableSeats"

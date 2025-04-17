@@ -160,7 +160,7 @@ export default function UpdateShowTimeModal({ showtime: showTimeData }: UpdateSh
               />
             </div>
 
-            <div className="mt-2">
+            <div className="flex items-center mt-2 gap-2">
               <DateTimePicker
                 value={showtime.startTime ? dayjs(showtime.startTime) : null}
                 onChange={(newValue) =>
@@ -172,8 +172,6 @@ export default function UpdateShowTimeModal({ showtime: showTimeData }: UpdateSh
                 ampm={false}
                 sx={{ width: "100%" }}
               />
-            </div>
-            <div className="mt-2">
               <DateTimePicker
                 value={showtime.endTime ? dayjs(showtime.endTime) : null}
                 onChange={(newValue) =>
@@ -192,6 +190,36 @@ export default function UpdateShowTimeModal({ showtime: showTimeData }: UpdateSh
                 name="price"
                 label="Nhập giá vé"
                 value={showtime.price}
+              />
+            </div>
+            <div className="flex items-center mt-2 gap-2">
+              <TextFieldInput
+                onChange={(e) =>
+                  setShowTime((prev) => ({
+                    ...prev,
+                    seatPricing: {
+                      ...prev.seatPricing,
+                      normal: Number(e.target.value),
+                    },
+                  }))
+                }
+                name="SINGLE"
+                label="Tỉ lệ giá ghế đơn"
+                value={showtime.seatPricing?.SINGLE || 1}
+              />
+              <TextFieldInput
+                onChange={(e) =>
+                  setShowTime((prev) => ({
+                    ...prev,
+                    seatPricing: {
+                      ...prev.seatPricing,
+                      vip: Number(e.target.value),
+                    },
+                  }))
+                }
+                name="DOUBLE"
+                label="Tỉ lệ giá ghế đôi"
+                value={showtime.seatPricing?.DOUBLE || ""}
               />
             </div>
             <div className="mt-2">

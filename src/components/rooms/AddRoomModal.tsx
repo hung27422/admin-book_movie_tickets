@@ -35,7 +35,7 @@ export default function AddRoomModal() {
     const selectedId = value?._id || "";
     setRoom((prevRoom) => ({
       ...prevRoom,
-      cinemaId: selectedId,
+      cinemaId: { ...prevRoom.cinemaId, _id: selectedId },
     }));
   };
 
@@ -46,7 +46,7 @@ export default function AddRoomModal() {
   // state
   const [room, setRoom] = React.useState<IRoom>({
     name: "",
-    cinemaId: "",
+    cinemaId: {name: "", _id: ""},
     rows: 0,
     cols: 0,
     aisleCols: [],
