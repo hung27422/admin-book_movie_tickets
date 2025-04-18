@@ -6,6 +6,8 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import LocalDrinkIcon from "@mui/icons-material/LocalDrink";
 import { usePathname } from "next/navigation";
 const menus = [
   {
@@ -35,8 +37,14 @@ const menus = [
   {
     id: "5",
     title: "Suất chiếu",
-    icon: <LocationOnIcon />,
+    icon: <AccessTimeIcon />,
     href: "/showtimes",
+  },
+  {
+    id: "6",
+    title: "Bắp nước",
+    icon: <LocalDrinkIcon />,
+    href: "/snack",
   },
 ];
 function Sidebar() {
