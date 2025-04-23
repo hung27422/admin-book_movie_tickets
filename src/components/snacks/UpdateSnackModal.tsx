@@ -42,11 +42,11 @@ const UpdateSnackModal = ({ snack }: UpdateSnackModalProps) => {
   const handleSubmit = async () => {
     try {
       await updateSnack(id ?? "", snackData);
-      showSnackbar("Sửa bắp nước thành công!", "success");
+      showSnackbar(`Sửa ${snack.name} thành công!`, "success");
       setOpen(false);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
-      showSnackbar("Lỗi khi sửa bắp nước!", "error");
+      showSnackbar(`Lỗi khi sửa ${snack.name}!`, "error");
     }
   };
 

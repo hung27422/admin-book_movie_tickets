@@ -46,9 +46,13 @@ const CinemaSelect = ({
 
 function Snack() {
   const [cinemaId, setCinemaId] = useState("");
-  const { cinemas } = useCinemas();
-  const { snacks } = useSnacks();
+  console.log({ cinemaId });
 
+  const { cinemas } = useCinemas();
+  const { snacks, dataSnacksByCinema } = useSnacks({ cinemaId: cinemaId });
+  console.log({ snacks, dataSnacksByCinema });
+
+  const data = dataSnacksByCinema ? dataSnacksByCinema : snacks;
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -63,7 +67,7 @@ function Snack() {
       <div className="mt-2">
         <CinemaSelect cinemas={cinemas ?? []} onChange={setCinemaId} />
         <div className="mt-3">
-          <SnackTable snacks={snacks} />
+          <SnackTable snacks={data} />
         </div>
       </div>
     </div>

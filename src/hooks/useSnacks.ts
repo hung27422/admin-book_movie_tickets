@@ -7,12 +7,15 @@ interface UseSnackProps {
   name?: string;
 }
 
-function useSnacks({ name }: UseSnackProps = {}) {
+function useSnacks({ name, cinemaId }: UseSnackProps = {}) {
   // Lấy tất cả snacks theo cinemaId
   const { data: snacks, error, mutate } = useSWR<ISnack[]>("/snacks");
 
   // Lấy snacks theo tên (search)
   const { data: dataSnackByName } = useSWR<ISnack[]>(name && `/snacks/search?name=${name}`);
+
+  // Lấy snacks theo cinemaId
+  const { data: dataSnacksByCinema } = useSWR<ISnack[]>(cinemaId && `/snacks/${cinemaId}`);
 
   const addSnack = async (snack: ISnack) => {
     try {
@@ -51,6 +54,7 @@ function useSnacks({ name }: UseSnackProps = {}) {
   return {
     snacks,
     dataSnackByName,
+    dataSnacksByCinema,
     error,
     addSnack,
     updateSnack,

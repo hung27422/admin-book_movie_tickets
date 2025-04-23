@@ -59,19 +59,25 @@ const AddSnackModal = () => {
         aria-describedby="modal-description"
       >
         <Box sx={modalStyle}>
-          <Typography
-            id="modal-title"
-            variant="h6"
-            component="h2"
-            sx={{
-              letterSpacing: 2,
-              fontWeight: "bold",
-              fontSize: "30px",
-              textAlign: "center",
-            }}
-          >
-            THÊM BẮP NƯỚC
-          </Typography>
+          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div className="w-16"></div>
+            <Typography
+              id="modal-title"
+              variant="h6"
+              component="h2"
+              sx={{
+                letterSpacing: 2,
+                fontWeight: "bold",
+                fontSize: "30px",
+                textAlign: "center",
+              }}
+            >
+              THÊM BẮP NƯỚC
+            </Typography>
+            <Button variant="contained" color="error" onClick={() => setOpen(false)}>
+              Hủy
+            </Button>
+          </Box>
 
           <Box id="modal-description" sx={{ mt: 2 }}>
             <TextFieldInput
@@ -80,13 +86,7 @@ const AddSnackModal = () => {
               value={snackData.name}
               onChange={handleChange}
             />
-            <TextFieldInput
-              label="Giá"
-              name="price"
-              type="number"
-              value={snackData.price}
-              onChange={handleChange}
-            />
+            <TextFieldInput label="Giá" name="price" onChange={handleChange} />
             <TextFieldInput
               label="Mô tả"
               name="description"
@@ -110,10 +110,7 @@ const AddSnackModal = () => {
                 ))}
               </TextField>
             </div>
-            <Box className="flex justify-end gap-4 mt-6">
-              <Button variant="outlined" color="error" onClick={() => setOpen(false)}>
-                Hủy
-              </Button>
+            <Box className="flex justify-center gap-4 mt-6">
               <Button variant="contained" color="primary" onClick={handleSubmit}>
                 Lưu
               </Button>
