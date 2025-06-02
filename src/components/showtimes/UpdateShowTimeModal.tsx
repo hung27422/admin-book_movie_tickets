@@ -119,7 +119,7 @@ export default function UpdateShowTimeModal({ showtime: showTimeData }: UpdateSh
           >
             CẬP NHẬT SUẤT CHIẾU
           </Typography>
-          <Box sx={{ mt: 2 }}>
+          <Box sx={{ mt: 2, overflowY: "auto", maxHeight: "70vh", scrollbarWidth: "none" }}>
             <div className="mt-2">
               <Autocomplete
                 id="cinema-select"

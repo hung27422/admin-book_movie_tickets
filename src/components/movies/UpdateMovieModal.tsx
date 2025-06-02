@@ -98,6 +98,7 @@ export default function UpdateMovieModal({ movie: movieData }: UpdateMovieModalP
           >
             <MenuItem value="NOWSHOWING">Đang chiếu</MenuItem>
             <MenuItem value="COMINGSOON">Sắp chiếu</MenuItem>
+            <MenuItem value="EARLYACCESS">Chiếu sớm</MenuItem>
             <MenuItem value="TEMPORARILYCLOSED">Tạm ngưng</MenuItem>
           </Select>
         </FormControl>

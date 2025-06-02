@@ -17,9 +17,9 @@ function Cinemas() {
   const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setValueSearch(e.target.value);
   }, []);
+
   if (!cinemas) return <div>Loading...</div>;
   const data = dataCinemaByName ? dataCinemaByName : cinemas;
-  console.log({ data });
 
   return (
     <div>

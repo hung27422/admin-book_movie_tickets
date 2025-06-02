@@ -5,6 +5,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { SWRConfig } from "swr";
 import api from "../utils/api";
+import { AppContextProvider } from "@/contexts/AppContextProvider/AppContextProvider";
 
 const SnackbarProvider = dynamic(() => import("notistack").then((mod) => mod.SnackbarProvider), {
   ssr: false,
@@ -23,7 +24,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
             shouldRetryOnError: false,
           }}
         >
-          <AuthContextProvider>{children}</AuthContextProvider>
+          <AppContextProvider>
+            <AuthContextProvider>{children}</AuthContextProvider>
+          </AppContextProvider>
         </SWRConfig>
       </LocalizationProvider>
     </SnackbarProvider>

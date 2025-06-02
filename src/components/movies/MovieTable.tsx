@@ -57,6 +57,7 @@ function MovieTable({ movies }: MovieTableProps) {
             let type = "";
             if (movie.status === "NOWSHOWING") type = "Đang chiếu";
             if (movie.status === "COMINGSOON") type = "Sắp chiếu";
+            if (movie.status === "EARLYACCESS") type = "Chiếu sớm";
             if (movie.status === "TEMPORARILYCLOSED") type = "Tạm ngưng";
             const formatReleaseDate = (dateString: string) => {
               return dayjs(dateString).format("DD/MM/YYYY");
