@@ -38,13 +38,9 @@ function useShowTime({ idRoom, idMovie }: useShowTimeProps = {}) {
       throw error;
     }
   };
-  const updateShowTimeEveryday = async (ids: string[], startTime: string, endTime: string) => {
+  const updateShowTimeEveryday = async (ids: string[], startTime: string) => {
     try {
-      const updateShowTimeEveryday = await showtimeServices.updateShowTimeEveryday(
-        ids,
-        startTime,
-        endTime
-      );
+      const updateShowTimeEveryday = await showtimeServices.updateShowTimeEveryday(ids, startTime);
       mutate();
       mutateByRoom();
       mutateByRoomIdAndMovie();

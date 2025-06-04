@@ -8,8 +8,8 @@ const showtimeServices = {
   updateShowtime: (id: string, showtime: IShowTime) =>
     api.put(`/showtimes/${id}`, showtime).then((res) => res.data),
   //
-  updateShowTimeEveryday: (ids: string[], startTime: string, endTime: string) =>
-    api.put("/showtimes/update-same-time", { ids, startTime, endTime }).then((res) => res.data),
+  updateShowTimeEveryday: (ids: string[], startTime: string) =>
+    api.put("/showtimes/update-same-time", { ids, startTime }).then((res) => res.data),
   // Xóa phim
   deleteShowtime: (id: string) => api.delete(`/showtimes/${id}`).then((res) => res.data),
 };
