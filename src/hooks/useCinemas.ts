@@ -13,7 +13,6 @@ function useCinemas({ name }: useCinemasProps = {}) {
     try {
       const newCinema = await cinemasServices.addCinema(cinema);
       mutate(); // Cập nhật dữ liệu ngay lập tức
-      console.log({ newCinema });
       return newCinema;
     } catch (error) {
       console.error("Lỗi khi thêm rạp:", error);
@@ -25,7 +24,6 @@ function useCinemas({ name }: useCinemasProps = {}) {
     try {
       const updatedCinema = await cinemasServices.updateCinema(id, cinema);
       mutate(); // Cập nhật dữ liệu ngay lập tức
-      console.log({ updatedCinema });
       return updatedCinema;
     } catch (error) {
       console.error("Lỗi khi cập nhật rạp phim:", error);

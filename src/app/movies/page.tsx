@@ -20,7 +20,6 @@ function Movie() {
 
   if (!movies) return <div>Loading...</div>;
   const dataMovies = dataSearchMovies ? dataSearchMovies : movies;
-  console.log("Render Movie component");
   return (
     <div>
       <div className="flex items-center justify-between">

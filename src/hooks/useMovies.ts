@@ -12,7 +12,6 @@ function useMovies({ title }: useMoviesProps = {}) {
     try {
       const newMovie = await movieServices.addMovie(movie);
       mutate(); // Cập nhật dữ liệu ngay lập tức
-      console.log({ newMovie });
       return newMovie;
     } catch (error) {
       console.error("Lỗi khi thêm phim:", error);
@@ -24,7 +23,6 @@ function useMovies({ title }: useMoviesProps = {}) {
     try {
       const updatedMovie = await movieServices.updateMovie(id, movie);
       mutate(); // Cập nhật dữ liệu ngay lập tức
-      console.log({ updatedMovie });
       return updatedMovie;
     } catch (error) {
       console.error("Lỗi khi cập nhật phim:", error);

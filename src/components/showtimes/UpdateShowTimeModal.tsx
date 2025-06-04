@@ -41,6 +41,7 @@ export default function UpdateShowTimeModal({ showtime: showTimeData }: UpdateSh
   const handleClose = () => setOpen(false);
   // state
   const [showtime, setShowTime] = React.useState<IShowTime>(showTimeData);
+
   // hook
   const { updateShowTime } = useShowTime();
   const { getRoomsByCinemaId, rooms } = useRooms({ idCinema: showtime.cinemaId });
@@ -119,7 +120,7 @@ export default function UpdateShowTimeModal({ showtime: showTimeData }: UpdateSh
           >
             CẬP NHẬT SUẤT CHIẾU
           </Typography>
-          <Box sx={{ mt: 2, overflowY: "auto", maxHeight: "70vh", scrollbarWidth: "none" }}>
+          <Box sx={{ mt: 2 }}>
             <div className="mt-2">
               <Autocomplete
                 id="cinema-select"
@@ -160,30 +161,6 @@ export default function UpdateShowTimeModal({ showtime: showTimeData }: UpdateSh
               />
             </div>
 
-            <div className="flex items-center mt-2 gap-2">
-              <DateTimePicker
-                value={showtime.startTime ? dayjs(showtime.startTime) : null}
-                onChange={(newValue) =>
-                  setShowTime((prev) => ({
-                    ...prev,
-                    startTime: newValue ? newValue.toISOString() : "",
-                  }))
-                }
-                ampm={false}
-                sx={{ width: "100%" }}
-              />
-              <DateTimePicker
-                value={showtime.endTime ? dayjs(showtime.endTime) : null}
-                onChange={(newValue) =>
-                  setShowTime((prev) => ({
-                    ...prev,
-                    endTime: newValue ? newValue.toISOString() : "",
-                  }))
-                }
-                ampm={false}
-                sx={{ width: "100%" }}
-              />
-            </div>
             <div className="mt-2">
               <TextFieldInput
                 onChange={handleChangeValueShowTime}
@@ -220,6 +197,30 @@ export default function UpdateShowTimeModal({ showtime: showTimeData }: UpdateSh
                 name="DOUBLE"
                 label="Tỉ lệ giá ghế đôi"
                 value={showtime.seatPricing?.DOUBLE || ""}
+              />
+            </div>
+            <div className="flex items-center mt-2 gap-2">
+              <DateTimePicker
+                value={showtime.startTime ? dayjs(showtime.startTime) : null}
+                onChange={(newValue) =>
+                  setShowTime((prev) => ({
+                    ...prev,
+                    startTime: newValue ? newValue.toISOString() : "",
+                  }))
+                }
+                ampm={false}
+                sx={{ width: "100%" }}
+              />
+              <DateTimePicker
+                value={showtime.endTime ? dayjs(showtime.endTime) : null}
+                onChange={(newValue) =>
+                  setShowTime((prev) => ({
+                    ...prev,
+                    endTime: newValue ? newValue.toISOString() : "",
+                  }))
+                }
+                ampm={false}
+                sx={{ width: "100%" }}
               />
             </div>
             <div className="mt-2">

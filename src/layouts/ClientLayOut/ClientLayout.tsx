@@ -9,7 +9,6 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   const { authState } = useContext(AuthContext);
   const pathName = usePathname();
   const router = useRouter();
-  console.log({ authState });
 
   useEffect(() => {
     if (!authState.isAuthenticated) {

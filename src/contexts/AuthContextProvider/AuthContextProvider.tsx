@@ -43,7 +43,6 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const loadUser = async () => {
     try {
       const response = await api.get("/auth/authAdmin");
-      console.log({ responseLoad: response });
 
       if (response.data.success) {
         dispatch({ type: "LOGIN", payload: { isAuthenticated: true, user: response.data.user } });
@@ -67,7 +66,6 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   ): Promise<{ success: boolean; token?: string; data?: LoginData; message?: string }> => {
     try {
       const response = await api.post("/auth/loginAdmin", account);
-      console.log({ response });
       // Lưu token vào local storage
       if (response.data.success) {
         localStorage.setItem(LOCAL_STORAGE_TOKEN_NAME, response.data.accessToken);

@@ -7,16 +7,19 @@ interface useShowTimeProps {
 }
 function useShowTime({ idRoom, idMovie }: useShowTimeProps = {}) {
   const { data: showtimes, error, mutate } = useSWR<IShowTime[]>("/showtimes");
-  const { data: getShowTimeByRoomId } = useSWR<IShowTime[]>(`/showtimes/room/${idRoom}`);
-  const { data: getShowTimeByRoomIdAndMovieID } = useSWR<IShowTime[]>(
-    `/showtimes/filter?roomId=${idRoom}&movieId=${idMovie}`
+  const { data: getShowTimeByRoomId, mutate: mutateByRoom } = useSWR<IShowTime[]>(
+    idRoom ? `/showtimes/room/${idRoom}` : null
   );
+  const { data: getShowTimeByRoomIdAndMovieID, mutate: mutateByRoomIdAndMovie } = useSWR<
+    IShowTime[]
+  >(idRoom && idMovie ? `/showtimes/filter?roomId=${idRoom}&movieId=${idMovie}` : null);
 
   const addShowTime = async (showtime: IShowTime) => {
     try {
       const newShowtime = await showtimeServices.addShowtime(showtime);
-      mutate(); // Cập nhật dữ liệu ngay lập tức
-      console.log({ newRoom: newShowtime });
+      mutate();
+      mutateByRoom();
+      mutateByRoomIdAndMovie();
       return newShowtime;
     } catch (error) {
       console.error("Lỗi khi thêm suất chiếu:", error);
@@ -26,7 +29,9 @@ function useShowTime({ idRoom, idMovie }: useShowTimeProps = {}) {
   const updateShowTime = async (id: string, showtime: IShowTime) => {
     try {
       const updatedShowtime = await showtimeServices.updateShowtime(id, showtime);
-      mutate(); // Cập nhật dữ liệu ngay lập tức
+      mutate();
+      mutateByRoom();
+      mutateByRoomIdAndMovie();
       console.log({ updatedRoom: updatedShowtime });
       return updatedShowtime;
     } catch (error) {
@@ -34,10 +39,28 @@ function useShowTime({ idRoom, idMovie }: useShowTimeProps = {}) {
       throw error;
     }
   };
+  const updateShowTimeEveryday = async (ids: string[], startTime: string, endTime: string) => {
+    try {
+      const updateShowTimeEveryday = await showtimeServices.updateShowTimeEveryday(
+        ids,
+        startTime,
+        endTime
+      );
+      mutate();
+      mutateByRoom();
+      mutateByRoomIdAndMovie();
+      return updateShowTimeEveryday;
+    } catch (error) {
+      console.error("Lỗi khi cập nhật suất chiếu mỗi ngày:", error);
+      throw error;
+    }
+  };
   const deleteShowtime = async (id: string) => {
     try {
       await showtimeServices.deleteShowtime(id);
-      mutate(); // Cập nhật dữ liệu ngay lập tức
+      mutate();
+      mutateByRoom();
+      mutateByRoomIdAndMovie(); // Cập nhật dữ liệu ngay lập tức
     } catch (error) {
       console.error("Lỗi khi xóa suất chiếu:", error);
       throw error;
@@ -47,6 +70,7 @@ function useShowTime({ idRoom, idMovie }: useShowTimeProps = {}) {
     showtimes,
     getShowTimeByRoomId,
     getShowTimeByRoomIdAndMovieID,
+    updateShowTimeEveryday,
     error,
     addShowTime,
     deleteShowtime,

@@ -21,7 +21,6 @@ function useSnacks({ name, cinemaId }: UseSnackProps = {}) {
     try {
       const newSnack = await snacksServices.addSnack(snack);
       mutate(); // cập nhật lại danh sách
-      console.log("Snack mới:", newSnack);
       return newSnack;
     } catch (error) {
       console.error("Lỗi khi thêm snack:", error);
@@ -33,7 +32,6 @@ function useSnacks({ name, cinemaId }: UseSnackProps = {}) {
     try {
       const updated = await snacksServices.updateSnack(id, snack);
       mutate();
-      console.log("Snack đã cập nhật:", updated);
       return updated;
     } catch (error) {
       console.error("Lỗi khi cập nhật snack:", error);

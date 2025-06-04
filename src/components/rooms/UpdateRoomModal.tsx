@@ -24,7 +24,6 @@ interface UpdateRoomModalProps {
   room: IRoom;
 }
 export default function UpdateRoomModal({ room: roomData }: UpdateRoomModalProps) {
-  console.log({ roomData });
   const id = roomData._id;
 
   // MUI

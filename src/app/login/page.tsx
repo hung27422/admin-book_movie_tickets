@@ -6,11 +6,14 @@ import Button from "@/components/Button";
 import { useContext, useState } from "react";
 import { Account } from "@/types/User";
 import { AuthContext } from "@/contexts/AuthContextProvider/AuthContextProvider";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 function Login() {
   const router = useRouter();
   //context
   const { login } = useContext(AuthContext);
+  const pathname = usePathname();
+  console.log({ pathname });
+
   //state
   const [valueAccount, setValueAccount] = useState<Account>({ username: "", password: "" });
   const { username, password } = valueAccount;
@@ -22,9 +25,7 @@ function Login() {
   };
   const handleLogin = async () => {
     const dataLogin = await login(valueAccount);
-    console.log({ dataLogin });
-
-    if (dataLogin.success) {
+    if (dataLogin.success && pathname === "/login") {
       router.push("/");
     } else {
       console.log(dataLogin.message);

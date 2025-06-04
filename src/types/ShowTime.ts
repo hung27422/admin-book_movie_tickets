@@ -24,9 +24,9 @@ export interface IShowTime {
   room?: IRoom;
   cinema?: ICinemas;
   startTime: string;
-  endTime: string;
+  endTime?: string;
   price: number;
-  availableSeats: number;
+  availableSeats?: number;
   seatPricing: ISeatPricing;
   createdAt?: string;
   updatedAt?: string;

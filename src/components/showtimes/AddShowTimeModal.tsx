@@ -42,9 +42,8 @@ export default function AddShowTimeModal() {
     roomId: "",
     cinemaId: "",
     startTime: "",
-    endTime: "",
     price: 0,
-    availableSeats: 0,
+
     seatPricing: { DOUBLE: 0, SINGLE: 1 },
   });
   // MUI selected
@@ -71,7 +70,6 @@ export default function AddShowTimeModal() {
   };
   // hooks
   const { addShowTime } = useShowTime();
-  console.log(showtime.cinemaId);
 
   const { getRoomsByCinemaId } = useRooms({ idCinema: showtime.cinemaId });
   const { cinemas } = useCinemas();
@@ -259,36 +257,6 @@ export default function AddShowTimeModal() {
             <div className="mt-2">{selectIdMovie}</div>
 
             <div className="">
-              <div className="flex items-center gap-2">
-                <DateTimePicker
-                  label="Select Date"
-                  name="startTime"
-                  onChange={(newValue) => {
-                    setShowTime((prevShowTime) => ({
-                      ...prevShowTime,
-                      startTime: newValue ? newValue.toISOString() : "",
-                    }));
-                  }}
-                  slots={{ textField: TextField }}
-                  slotProps={{ textField: { label: "Giờ bắt đầu" } }}
-                  ampm={false}
-                  sx={{ width: "100%", marginTop: "8px" }}
-                />
-                <DateTimePicker
-                  label="Select Date"
-                  name="endTime"
-                  onChange={(newValue) => {
-                    setShowTime((prevShowTime) => ({
-                      ...prevShowTime,
-                      endTime: newValue ? newValue.toISOString() : "",
-                    }));
-                  }}
-                  slots={{ textField: TextField }}
-                  slotProps={{ textField: { label: "Giờ kết thúc" } }}
-                  ampm={false}
-                  sx={{ width: "100%", marginTop: "8px" }}
-                />
-              </div>
               <TextFieldInput
                 onChange={handleChangeValueShowTime}
                 name="price"
@@ -323,11 +291,22 @@ export default function AddShowTimeModal() {
                   label="% Giá ghế đôi"
                 />
               </div>
-              <TextFieldInput
-                onChange={handleChangeValueShowTime}
-                name="availableSeats"
-                label="Nhập số ghế"
-              />
+              <div className="flex items-center gap-2">
+                <DateTimePicker
+                  label="Select Date"
+                  name="startTime"
+                  onChange={(newValue) => {
+                    setShowTime((prevShowTime) => ({
+                      ...prevShowTime,
+                      startTime: newValue ? newValue.toISOString() : "",
+                    }));
+                  }}
+                  slots={{ textField: TextField }}
+                  slotProps={{ textField: { label: "Giờ bắt đầu" } }}
+                  ampm={false}
+                  sx={{ width: "100%", marginTop: "8px" }}
+                />
+              </div>
             </div>
             <div className="flex items-center justify-center mt-4 gap-2">
               <Button

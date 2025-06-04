@@ -46,11 +46,9 @@ const CinemaSelect = ({
 
 function Snack() {
   const [cinemaId, setCinemaId] = useState("");
-  console.log({ cinemaId });
 
   const { cinemas } = useCinemas();
   const { snacks, dataSnacksByCinema } = useSnacks({ cinemaId: cinemaId });
-  console.log({ snacks, dataSnacksByCinema });
 
   const data = dataSnacksByCinema ? dataSnacksByCinema : snacks;
   return (
