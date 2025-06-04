@@ -31,3 +31,8 @@ export interface IShowTime {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export interface IShowTimeByPageAndLimit {
+  data: IShowTime[];
+  totalPage: 2;
+}

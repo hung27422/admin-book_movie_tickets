@@ -10,6 +10,8 @@ import TextFieldInput from "@/components/TextFieldInput";
 import useCinemas from "@/hooks/useCinemas";
 import useRooms from "@/hooks/useRooms";
 import { ICinemas } from "@/types/Cinemas";
+import usePagination from "@/components/hooks/usePagination";
+import Pagination from "@/components/Pagination";
 
 const CinemaSelect = ({
   cinemas,
@@ -25,20 +27,23 @@ const CinemaSelect = ({
       autoHighlight
       getOptionLabel={(cinema) => cinema.name}
       onChange={(_, value) => onChange(value?._id || "")}
-      renderOption={(props, option) => (
-        <Box component="li" sx={{ "& > Image": { mr: 2, flexShrink: 0 } }} {...props}>
-          <Image
-            loading="lazy"
-            width={30}
-            height={30}
-            src={option.image}
-            alt=""
-            style={{ objectFit: "cover" }}
-            className="mr-3 rounded-lg"
-          />
-          {option.name}
-        </Box>
-      )}
+      renderOption={(props, option) => {
+        const { key, ...rest } = props;
+        return (
+          <Box key={key} component="li" sx={{ "& > Image": { mr: 2, flexShrink: 0 } }} {...rest}>
+            <Image
+              loading="lazy"
+              width={30}
+              height={30}
+              src={option.image}
+              alt=""
+              style={{ objectFit: "cover" }}
+              className="mr-3 rounded-lg"
+            />
+            {option.name}
+          </Box>
+        );
+      }}
       renderInput={(params) => <TextField {...params} label="Lọc phòng theo rạp" size="small" />}
     />
   </Box>
@@ -47,11 +52,14 @@ const CinemaSelect = ({
 function Room() {
   const [idCinemaState, setIdCinemaState] = useState("");
 
-  const { cinemas } = useCinemas();
-  const { rooms } = useRooms();
+  const { cinemaAll } = useCinemas();
+
+  const { page, handleChange } = usePagination();
+  const { rooms } = useRooms({ page: page, limit: 6 });
+
   const { getRoomsByCinemaId } = useRooms({ idCinema: idCinemaState });
 
-  const data = getRoomsByCinemaId ?? rooms;
+  const data = getRoomsByCinemaId ?? rooms?.data;
 
   if (!rooms && !getRoomsByCinemaId) return <div>Loading...</div>;
 
@@ -74,10 +82,15 @@ function Room() {
 
       <div className="mt-2">
         <div className="mb-2">
-          <CinemaSelect cinemas={cinemas ?? []} onChange={setIdCinemaState} />
+          <CinemaSelect cinemas={cinemaAll ?? []} onChange={setIdCinemaState} />
         </div>
         <RoomTable rooms={data} />
       </div>
+      {rooms && !getRoomsByCinemaId && rooms.totalPages >= 2 && (
+        <div className="flex items-center justify-center mt-5">
+          <Pagination totalPages={rooms.totalPages} page={page} handleChange={handleChange} />
+        </div>
+      )}
     </div>
   );
 }

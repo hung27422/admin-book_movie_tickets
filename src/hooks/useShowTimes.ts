@@ -1,12 +1,21 @@
 import showtimeServices from "@/services/showtimeServices";
-import { IShowTime } from "@/types/ShowTime";
+import { IShowTime, IShowTimeByPageAndLimit } from "@/types/ShowTime";
 import useSWR from "swr";
 interface useShowTimeProps {
   idRoom?: string;
   idMovie?: string;
+  page?: number;
+  limit?: number;
 }
-function useShowTime({ idRoom, idMovie }: useShowTimeProps = {}) {
-  const { data: showtimes, error, mutate } = useSWR<IShowTime[]>("/showtimes");
+function useShowTime({ idRoom, idMovie, page, limit }: useShowTimeProps = {}) {
+  const {
+    data: showtimes,
+    error,
+    mutate,
+  } = useSWR<IShowTimeByPageAndLimit>(
+    page && limit ? `/showtimes?page=${page}&limit=${limit}` : null
+  );
+
   const { data: getShowTimeByRoomId, mutate: mutateByRoom } = useSWR<IShowTime[]>(
     idRoom ? `/showtimes/room/${idRoom}` : null
   );

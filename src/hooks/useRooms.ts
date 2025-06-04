@@ -1,14 +1,21 @@
 import roomsServices from "@/services/roomsServices";
-import { IRoom } from "@/types/Rooms";
+import { IRoom, IRoomByPageAndLimit } from "@/types/Rooms";
 import useSWR from "swr";
 
 interface useRoomsProps {
   idCinema?: string;
+  page?: number;
+  limit?: number;
 }
-function useRooms({ idCinema }: useRoomsProps = {}) {
-  const { data: rooms, error, mutate } = useSWR<IRoom[]>("/rooms");
+function useRooms({ idCinema, page, limit }: useRoomsProps = {}) {
+  const {
+    data: rooms,
+    error,
+    mutate,
+  } = useSWR<IRoomByPageAndLimit>(page && limit ? `/rooms?page=${page}&limit=${limit}` : null);
+
   const { data: getRoomsByCinemaId } = useSWR<IRoom[]>(
-    idCinema ? `/rooms?cinemaId=${idCinema}` : null
+    idCinema ? `/rooms/by-cinema?cinemaId=${idCinema}` : null
   );
 
   const addRoom = async (room: IRoom) => {

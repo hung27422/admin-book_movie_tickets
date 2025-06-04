@@ -1,4 +1,6 @@
 "use client";
+import usePagination from "@/components/hooks/usePagination";
+import Pagination from "@/components/Pagination";
 import AddShowTimeModal from "@/components/showtimes/AddShowTimeModal";
 import ShowTimeTable from "@/components/showtimes/ShowTimeTable";
 import TextFieldInput from "@/components/TextFieldInput";
@@ -86,19 +88,22 @@ function ShowTime() {
   const [idRoomState, setIdRoomState] = useState("");
   const [idMovieState, setIdMovieState] = useState("");
   //hooks
+  const { page, handleChange } = usePagination();
   const { showtimes, getShowTimeByRoomIdAndMovieID, getShowTimeByRoomId } = useShowTime({
     idMovie: idMovieState ?? "",
     idRoom: idRoomState ?? "",
+    page: page,
+    limit: 5,
   });
-  const { cinemas } = useCinemas();
-  const { movies } = useMovies();
+  const { cinemaAll } = useCinemas();
+  const { movieAll } = useMovies();
   const { getRoomsByCinemaId } = useRooms({ idCinema: idCinemaState ?? "" });
 
   const data = getShowTimeByRoomIdAndMovieID
     ? getShowTimeByRoomIdAndMovieID
     : getShowTimeByRoomId
     ? getShowTimeByRoomId
-    : showtimes;
+    : showtimes?.data;
 
   return (
     <div>
@@ -113,12 +118,20 @@ function ShowTime() {
       </div>
       <div className="mt-2">
         <div className="flex flex-col gap-3 mb-2">
-          <CinemaSelect cinemas={cinemas ?? []} onChange={setIdCinemaState} />
+          <CinemaSelect cinemas={cinemaAll ?? []} onChange={setIdCinemaState} />
           <RoomSelect rooms={getRoomsByCinemaId ?? []} onChange={setIdRoomState} />
-          <MovieSelect movies={movies ?? []} onChange={setIdMovieState} />
+          <MovieSelect movies={movieAll ?? []} onChange={setIdMovieState} />
         </div>
         <ShowTimeTable showtimes={data} />
       </div>
+      {showtimes &&
+        !getShowTimeByRoomIdAndMovieID &&
+        !getShowTimeByRoomId &&
+        showtimes.totalPage >= 2 && (
+          <div className="flex items-center justify-center mt-5">
+            <Pagination totalPages={showtimes.totalPage} page={page} handleChange={handleChange} />
+          </div>
+        )}
     </div>
   );
 }

@@ -37,6 +37,8 @@ interface MovieTableProps {
 }
 function MovieTable({ movies }: MovieTableProps) {
   if (!movies) return <div>Loading...</div>;
+  console.log({ movies });
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 600 }} aria-label="customized table">

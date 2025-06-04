@@ -1,7 +1,9 @@
 "use client";
 import useDebounce from "@/components/hooks/useDebounce";
+import usePagination from "@/components/hooks/usePagination";
 import AddMovieModal from "@/components/movies/AddMovieModal";
 import MovieTable from "@/components/movies/MovieTable";
+import Pagination from "@/components/Pagination";
 import TextFieldInput from "@/components/TextFieldInput";
 import useMovies from "@/hooks/useMovies";
 import { useCallback, useState } from "react";
@@ -12,14 +14,20 @@ function Movie() {
   // debounce
   const debouncedValue = useDebounce(valueSearch, 300);
   // hooks
-  const { movies, dataSearchMovies } = useMovies({ title: debouncedValue ?? "" });
+  const { page, handleChange } = usePagination();
+
+  const { movies, dataSearchMovies } = useMovies({
+    title: debouncedValue ?? "",
+    page: page,
+    limit: 10,
+  });
   // function
   const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setValueSearch(e.target.value);
   }, []);
 
   if (!movies) return <div>Loading...</div>;
-  const dataMovies = dataSearchMovies ? dataSearchMovies : movies;
+  const dataMovies = dataSearchMovies ? dataSearchMovies : movies.data;
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -40,6 +48,11 @@ function Movie() {
       <div className="mt-2">
         <MovieTable movies={dataMovies} />
       </div>
+      {movies.totalPages >= 2 && (
+        <div className="flex items-center justify-center mt-5">
+          <Pagination totalPages={movies.totalPages} page={page} handleChange={handleChange} />
+        </div>
+      )}
     </div>
   );
 }

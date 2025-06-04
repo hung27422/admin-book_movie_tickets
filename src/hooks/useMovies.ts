@@ -1,11 +1,17 @@
 import movieServices from "@/services/movieServices";
-import { IMovie } from "@/types/Movies";
+import { IMovie, IMovieByPageAndLimit } from "@/types/Movies";
 import useSWR from "swr";
 interface useMoviesProps {
   title?: string;
+  page?: number;
+  limit?: number;
 }
-function useMovies({ title }: useMoviesProps = {}) {
-  const { data: movies, error, mutate } = useSWR<IMovie[]>("/movies");
+function useMovies({ title, page, limit }: useMoviesProps = {}) {
+  const { data: movieAll, mutate } = useSWR<IMovie[]>("/movies/getAll");
+  const { data: movies, error } = useSWR<IMovieByPageAndLimit>(
+    page && limit ? `/movies?page=${page}&limit=${limit}` : null
+  );
+
   const { data: dataSearchMovies } = useSWR<IMovie[]>(title && `/movies/search?title=${title}`);
 
   const addMovie = async (movie: IMovie) => {
@@ -40,7 +46,7 @@ function useMovies({ title }: useMoviesProps = {}) {
     }
   };
 
-  return { movies, dataSearchMovies, error, addMovie, updateMovie, deleteMovie };
+  return { movies, movieAll, dataSearchMovies, error, addMovie, updateMovie, deleteMovie };
 }
 
 export default useMovies;

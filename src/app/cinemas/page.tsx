@@ -2,6 +2,8 @@
 import AddCinemasModal from "@/components/cinemas/AddCinemasModal";
 import CinemasTable from "@/components/cinemas/CinemasTable";
 import useDebounce from "@/components/hooks/useDebounce";
+import usePagination from "@/components/hooks/usePagination";
+import Pagination from "@/components/Pagination";
 import TextFieldInput from "@/components/TextFieldInput";
 import useCinemas from "@/hooks/useCinemas";
 import { useCallback, useState } from "react";
@@ -12,15 +14,20 @@ function Cinemas() {
   // debounce
   const debouncedValue = useDebounce(valueSearch, 300);
   // hooks
-  const { cinemas, dataCinemaByName } = useCinemas({ name: debouncedValue ?? "" });
+  const { page, handleChange } = usePagination();
+  const { cinemas, dataCinemaByName } = useCinemas({
+    name: debouncedValue ?? "",
+    page: page,
+    limit: 10,
+  });
+
   // function
   const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setValueSearch(e.target.value);
   }, []);
 
   if (!cinemas) return <div>Loading...</div>;
-  const data = dataCinemaByName ? dataCinemaByName : cinemas;
-
+  const data = dataCinemaByName ? dataCinemaByName : cinemas.data;
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -41,6 +48,11 @@ function Cinemas() {
       <div className="mt-2">
         <CinemasTable cinemas={data} />
       </div>
+      {cinemas.totalPages >= 2 && (
+        <div className="flex items-center justify-center mt-5">
+          <Pagination totalPages={cinemas.totalPages} page={page} handleChange={handleChange} />
+        </div>
+      )}
     </div>
   );
 }

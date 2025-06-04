@@ -1,12 +1,19 @@
 import cinemasServices from "@/services/cinemasServices";
-import { ICinemas } from "@/types/Cinemas";
+import { ICinemas, ICinemasByPageAndLimit } from "@/types/Cinemas";
 import useSWR from "swr";
 
 interface useCinemasProps {
   name?: string;
+  page?: number;
+  limit?: number;
 }
-function useCinemas({ name }: useCinemasProps = {}) {
-  const { data: cinemas, error, mutate } = useSWR<ICinemas[]>("/cinemas");
+function useCinemas({ name, page, limit }: useCinemasProps = {}) {
+  const { data: cinemaAll, mutate } = useSWR<ICinemas[]>("cinemas/getAll");
+
+  const { data: cinemas, error } = useSWR<ICinemasByPageAndLimit>(
+    page && limit ? `/cinemas?page=${page}&limit=${limit}` : null
+  );
+
   const { data: dataCinemaByName } = useSWR<ICinemas[]>(name && `/cinemas/search?name=${name}`);
 
   const addCinema = async (cinema: ICinemas) => {
@@ -40,7 +47,7 @@ function useCinemas({ name }: useCinemasProps = {}) {
       throw error;
     }
   };
-  return { cinemas, dataCinemaByName, error, addCinema, updateCinema, deleteCinema };
+  return { cinemas, cinemaAll, dataCinemaByName, error, addCinema, updateCinema, deleteCinema };
 }
 
 export default useCinemas;

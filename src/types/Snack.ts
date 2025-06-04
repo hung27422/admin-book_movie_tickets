@@ -11,3 +11,8 @@ export interface ISnack {
   createdAt?: string; // Thời gian tạo (ISO format)
   updatedAt?: string; // Thời gian cập nhật (ISO format)
 }
+
+export interface ISnackByPageAndLimit {
+  data: ISnack[];
+  totalPage: number;
+}

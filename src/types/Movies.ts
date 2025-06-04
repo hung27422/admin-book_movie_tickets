@@ -24,3 +24,9 @@ export interface IMovie {
   };
   __v?: number;
 }
+export interface IMovieByPageAndLimit {
+  data: IMovie[];
+  currentPage: number;
+  totalPages: number;
+  totalMovies: number;
+}

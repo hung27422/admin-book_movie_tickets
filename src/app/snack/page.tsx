@@ -8,6 +8,8 @@ import { Autocomplete, Box, TextField } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";
 import AddSnackModal from "../../components/snacks/AddSnackModal";
+import Pagination from "@/components/Pagination";
+import usePagination from "@/components/hooks/usePagination";
 
 const CinemaSelect = ({
   cinemas,
@@ -47,10 +49,11 @@ const CinemaSelect = ({
 function Snack() {
   const [cinemaId, setCinemaId] = useState("");
 
-  const { cinemas } = useCinemas();
-  const { snacks, dataSnacksByCinema } = useSnacks({ cinemaId: cinemaId });
+  const { handleChange, page } = usePagination();
+  const { cinemaAll } = useCinemas();
+  const { snacks, dataSnacksByCinema } = useSnacks({ cinemaId: cinemaId, page: page, limit: 2 });
 
-  const data = dataSnacksByCinema ? dataSnacksByCinema : snacks;
+  const data = dataSnacksByCinema ? dataSnacksByCinema : snacks?.data;
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -63,11 +66,16 @@ function Snack() {
         </div>
       </div>
       <div className="mt-2">
-        <CinemaSelect cinemas={cinemas ?? []} onChange={setCinemaId} />
+        <CinemaSelect cinemas={cinemaAll ?? []} onChange={setCinemaId} />
         <div className="mt-3">
           <SnackTable snacks={data} />
         </div>
       </div>
+      {snacks && snacks.totalPage >= 2 && (
+        <div className="flex items-center justify-center mt-5">
+          <Pagination totalPages={snacks.totalPage} page={page} handleChange={handleChange} />
+        </div>
+      )}
     </div>
   );
 }

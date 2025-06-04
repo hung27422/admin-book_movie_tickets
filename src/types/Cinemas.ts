@@ -8,3 +8,9 @@ export interface ICinemas {
   createdAt?: Date;
   updatedAt?: Date;
 }
+export interface ICinemasByPageAndLimit {
+  data: ICinemas[];
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
+}

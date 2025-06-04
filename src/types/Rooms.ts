@@ -22,3 +22,10 @@ export interface IRoom {
   aisleCols?: [];
   doubleSeatRow?: [];
 }
+
+export interface IRoomByPageAndLimit {
+  data: IRoom[];
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
+}
