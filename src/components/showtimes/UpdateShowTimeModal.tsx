@@ -211,25 +211,6 @@ export default function UpdateShowTimeModal({ showtime: showTimeData }: UpdateSh
                 ampm={false}
                 sx={{ width: "100%" }}
               />
-              <DateTimePicker
-                value={showtime.endTime ? dayjs(showtime.endTime) : null}
-                onChange={(newValue) =>
-                  setShowTime((prev) => ({
-                    ...prev,
-                    endTime: newValue ? newValue.toISOString() : "",
-                  }))
-                }
-                ampm={false}
-                sx={{ width: "100%" }}
-              />
-            </div>
-            <div className="mt-2">
-              <TextFieldInput
-                onChange={handleChangeValueShowTime}
-                name="availableSeats"
-                label="Nhập số ghế"
-                value={showtime.availableSeats}
-              />
             </div>
 
             <div className="flex items-center justify-center mt-4 gap-2">
