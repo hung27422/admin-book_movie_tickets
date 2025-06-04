@@ -12,7 +12,6 @@ function Login() {
   //context
   const { login } = useContext(AuthContext);
   const pathname = usePathname();
-  console.log({ pathname });
 
   //state
   const [valueAccount, setValueAccount] = useState<Account>({ username: "", password: "" });

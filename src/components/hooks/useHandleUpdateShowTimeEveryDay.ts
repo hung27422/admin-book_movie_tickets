@@ -31,7 +31,6 @@ function useHandleUpdateShowTimeEveryDay() {
     const intervalId = setInterval(() => {
       const nowISO = new Date().toISOString();
       updateShowTimeEveryday(ids, nowISO, nowISO);
-      console.log("123");
     }, 60000);
 
     return () => clearInterval(intervalId);

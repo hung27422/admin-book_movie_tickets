@@ -32,7 +32,6 @@ function useShowTime({ idRoom, idMovie }: useShowTimeProps = {}) {
       mutate();
       mutateByRoom();
       mutateByRoomIdAndMovie();
-      console.log({ updatedRoom: updatedShowtime });
       return updatedShowtime;
     } catch (error) {
       console.error("Lỗi khi cập nhật suất chiếu:", error);
