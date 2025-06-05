@@ -93,7 +93,7 @@ function ShowTime() {
     idMovie: idMovieState ?? "",
     idRoom: idRoomState ?? "",
     page: page,
-    limit: 5,
+    limit: 6,
   });
   const { cinemaAll } = useCinemas();
   const { movieAll } = useMovies();
