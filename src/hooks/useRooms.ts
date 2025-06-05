@@ -8,7 +8,8 @@ interface useRoomsProps {
   limit?: number;
 }
 function useRooms({ idCinema, page, limit }: useRoomsProps = {}) {
-  const { data: roomAll, mutate, error } = useSWR<IRoom[]>("/rooms");
+  const { data: roomAll, mutate, error } = useSWR<IRoom[]>("/rooms/getAll");
+
   const { data: rooms } = useSWR<IRoomByPageAndLimit>(
     page && limit ? `/rooms?page=${page}&limit=${limit}` : null
   );

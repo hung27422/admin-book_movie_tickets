@@ -51,34 +51,34 @@ export default function ShowTimeTable({ showtimes }: ShowTimeTableProps) {
           </TableRow>
         </TableHead>
 
-        {showtimes && showtimes?.length > 0 ? (
-          <TableBody>
-            {showtimes?.map((showtime) => {
-              return (
-                <StyledTableRow key={showtime._id}>
-                  <StyledTableCell align="center">{showtime?.movie?.title}</StyledTableCell>
-                  <StyledTableCell align="center">{showtime?.cinema?.name}</StyledTableCell>
-                  <StyledTableCell align="center">{showtime?.room?.name}</StyledTableCell>
-                  <StyledTableCell align="center">
-                    {formatDate(showtime.startTime, true)}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {formatDate(showtime?.endTime ?? "", true)}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">{showtime.price}</StyledTableCell>
-                  <StyledTableCell align="center">{showtime.availableSeats}</StyledTableCell>
-                  <StyledTableCell align="center">
-                    <ShowTimeActionButton showtime={showtime} />
-                  </StyledTableCell>
-                </StyledTableRow>
-              );
-            })}
-          </TableBody>
-        ) : (
-          <div className="w-full">
-            <div className="p-4 text-2xl text-center mx-auto ">Hãy thêm suất chiếu!!!</div>
-          </div>
-        )}
+        <TableBody>
+          {showtimes && showtimes.length > 0 ? (
+            showtimes.map((showtime) => (
+              <StyledTableRow key={showtime._id}>
+                <StyledTableCell align="center">{showtime?.movie?.title}</StyledTableCell>
+                <StyledTableCell align="center">{showtime?.cinema?.name}</StyledTableCell>
+                <StyledTableCell align="center">{showtime?.room?.name}</StyledTableCell>
+                <StyledTableCell align="center">
+                  {formatDate(showtime.startTime, true)}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {formatDate(showtime?.endTime ?? "", true)}
+                </StyledTableCell>
+                <StyledTableCell align="center">{showtime.price}</StyledTableCell>
+                <StyledTableCell align="center">{showtime.availableSeats}</StyledTableCell>
+                <StyledTableCell align="center">
+                  <ShowTimeActionButton showtime={showtime} />
+                </StyledTableCell>
+              </StyledTableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={8} align="center">
+                <div className="text-2xl py-6">Hãy thêm suất chiếu!!!</div>
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
       </Table>
     </TableContainer>
   );
