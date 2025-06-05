@@ -6,6 +6,7 @@ import usePagination from "@/components/hooks/usePagination";
 import Pagination from "@/components/Pagination";
 import TextFieldInput from "@/components/TextFieldInput";
 import useCinemas from "@/hooks/useCinemas";
+import { ICinemas } from "@/types/Cinemas";
 import { useCallback, useState } from "react";
 
 function Cinemas() {
@@ -27,7 +28,7 @@ function Cinemas() {
   }, []);
 
   if (!cinemas) return <div>Loading...</div>;
-  const data = dataCinemaByName ? dataCinemaByName : cinemas.data;
+  const data: ICinemas[] = dataCinemaByName ?? cinemas?.data ?? [];
   return (
     <div>
       <div className="flex items-center justify-between">
