@@ -49,7 +49,7 @@ function Cinemas() {
       <div className="mt-2">
         <CinemasTable cinemas={data} />
       </div>
-      {cinemas.totalPages >= 2 && (
+      {cinemas && cinemas.totalPages >= 2 && (
         <div className="flex items-center justify-center mt-5">
           <Pagination totalPages={cinemas.totalPages} page={page} handleChange={handleChange} />
         </div>
