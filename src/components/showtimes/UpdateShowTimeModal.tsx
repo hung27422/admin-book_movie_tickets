@@ -44,14 +44,14 @@ export default function UpdateShowTimeModal({ showtime: showTimeData }: UpdateSh
 
   // hook
   const { updateShowTime } = useShowTime();
-  const { getRoomsByCinemaId, rooms } = useRooms({ idCinema: showtime.cinemaId });
-  const { cinemas } = useCinemas();
-  const { movies } = useMovies();
+  const { getRoomsByCinemaId, roomAll } = useRooms({ idCinema: showtime.cinemaId });
+  const { cinemaAll } = useCinemas();
+  const { movieAll } = useMovies();
   const { showSnackbar } = useSnackbar();
   // const
-  const defaultCinema = cinemas?.find((cinema) => cinema._id === showTimeData.cinema?._id);
-  const defaultRoom = rooms?.find((room) => room._id === showTimeData?.room?._id);
-  const defaultMovie = movies?.find((movie) => movie._id === showTimeData.movie?._id);
+  const defaultCinema = cinemaAll?.find((cinema) => cinema._id === showTimeData.cinema?._id);
+  const defaultRoom = roomAll?.find((room) => room._id === showTimeData?.room?._id);
+  const defaultMovie = movieAll?.find((movie) => movie._id === showTimeData.movie?._id);
   // Set giá trị mặc định khi modal mở
   React.useEffect(() => {
     setShowTime({
@@ -125,7 +125,7 @@ export default function UpdateShowTimeModal({ showtime: showTimeData }: UpdateSh
               <Autocomplete
                 id="cinema-select"
                 sx={{ width: "100%" }}
-                options={cinemas ?? []}
+                options={cinemaAll ?? []}
                 value={defaultCinema || null}
                 getOptionLabel={(cinema) => cinema.name}
                 onChange={handleSelectCinema}
@@ -151,7 +151,7 @@ export default function UpdateShowTimeModal({ showtime: showTimeData }: UpdateSh
               <Autocomplete
                 id="movie-select"
                 sx={{ width: "100%" }}
-                options={movies ?? []}
+                options={movieAll ?? []}
                 value={defaultMovie || null}
                 getOptionLabel={(movie) => movie.title}
                 onChange={handleSelectMovie}

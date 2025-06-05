@@ -72,8 +72,8 @@ export default function AddShowTimeModal() {
   const { addShowTime } = useShowTime();
 
   const { getRoomsByCinemaId } = useRooms({ idCinema: showtime.cinemaId });
-  const { cinemas } = useCinemas();
-  const { movies } = useMovies();
+  const { cinemaAll } = useCinemas();
+  const { movieAll } = useMovies();
   const { showSnackbar } = useSnackbar();
 
   // function
@@ -105,7 +105,7 @@ export default function AddShowTimeModal() {
         <Autocomplete
           id="country-select-demo"
           sx={{ width: "100%" }}
-          options={cinemas ?? []}
+          options={cinemaAll ?? []}
           autoHighlight
           getOptionLabel={(cinema) => cinema.name}
           onChange={(event, value) => handleSelectIdCinema(event, value)}
@@ -192,7 +192,7 @@ export default function AddShowTimeModal() {
         <Autocomplete
           id="country-select-demo"
           sx={{ width: "100%" }}
-          options={movies ?? []}
+          options={movieAll ?? []}
           autoHighlight
           getOptionLabel={(cinema) => cinema.title}
           onChange={(event, value) => handleSelectIdMovie(event, value)}

@@ -18,7 +18,7 @@ const AddSnackModal = () => {
   });
 
   const { enqueueSnackbar } = useSnackbar();
-  const { cinemas } = useCinemas();
+  const { cinemaAll } = useCinemas();
   const { addSnack } = useSnacks();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,7 +103,7 @@ const AddSnackModal = () => {
                 value={snackData.cinemaId._id}
                 onChange={handleChange}
               >
-                {cinemas?.map((cinema) => (
+                {cinemaAll?.map((cinema) => (
                   <MenuItem key={cinema._id} value={cinema._id}>
                     {cinema.name}
                   </MenuItem>

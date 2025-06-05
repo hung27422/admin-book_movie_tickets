@@ -31,7 +31,7 @@ const UpdateSnackModal = ({ snack }: UpdateSnackModalProps) => {
     cinemaId: { _id: snack.cinemaId._id },
   });
   const { showSnackbar } = useSnackbar();
-  const { cinemas } = useCinemas();
+  const { cinemaAll } = useCinemas();
   const { updateSnack } = useSnacks();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,7 +98,7 @@ const UpdateSnackModal = ({ snack }: UpdateSnackModalProps) => {
                 })
               }
             >
-              {cinemas?.map((cinema) => (
+              {cinemaAll?.map((cinema) => (
                 <MenuItem key={cinema._id} value={cinema._id}>
                   {cinema.name}
                 </MenuItem>

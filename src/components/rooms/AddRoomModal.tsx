@@ -41,12 +41,12 @@ export default function AddRoomModal() {
 
   // hooks
   const { addRoom } = useRooms();
-  const { cinemas } = useCinemas();
+  const { cinemaAll } = useCinemas();
   const { showSnackbar } = useSnackbar();
   // state
   const [room, setRoom] = React.useState<IRoom>({
     name: "",
-    cinemaId: {name: "", _id: ""},
+    cinemaId: { name: "", _id: "" },
     rows: 0,
     cols: 0,
     aisleCols: [],
@@ -82,7 +82,7 @@ export default function AddRoomModal() {
         <Autocomplete
           id="country-select-demo"
           sx={{ width: "100%" }}
-          options={cinemas ?? []}
+          options={cinemaAll ?? []}
           autoHighlight
           getOptionLabel={(cinema) => cinema.name}
           onChange={(event, value) => handleSelectIdCinema(event, value)}
