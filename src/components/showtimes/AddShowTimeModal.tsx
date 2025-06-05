@@ -17,6 +17,7 @@ import { IRoom } from "@/types/Rooms";
 import useMovies from "@/hooks/useMovies";
 import { IMovie } from "@/types/Movies";
 import { DateTimePicker } from "@mui/x-date-pickers";
+import useAddress from "@/utils/hooks/useAddress";
 
 const style = {
   position: "absolute",
@@ -30,12 +31,18 @@ const style = {
   p: 4,
 };
 
+interface IAddress {
+  id: number;
+  name: string;
+}
 export default function AddShowTimeModal() {
   // MUI
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   // state
+  const [selectValueNameAddress, setSelectValueNameAddress] = React.useState<IAddress>();
+  console.log({ selectValueNameAddress });
 
   const [showtime, setShowTime] = React.useState<IShowTime>({
     movieId: "",
@@ -69,10 +76,12 @@ export default function AddShowTimeModal() {
     }));
   };
   // hooks
+  const { address } = useAddress();
   const { addShowTime } = useShowTime();
-
   const { getRoomsByCinemaId } = useRooms({ idCinema: showtime.cinemaId });
-  const { cinemaAll } = useCinemas();
+  const { dataCinemasByLocation } = useCinemas({
+    location: selectValueNameAddress?.name,
+  });
   const { movieAll } = useMovies();
   const { showSnackbar } = useSnackbar();
 
@@ -99,13 +108,52 @@ export default function AddShowTimeModal() {
   };
 
   // Component
+  const selectNameAddress = (
+    <div>
+      <Box sx={{ minWidth: 120 }}>
+        <Autocomplete
+          id="country-select-demo"
+          sx={{ width: "100%" }}
+          options={address ?? []}
+          autoHighlight
+          getOptionLabel={(item) => item.name}
+          onChange={(_, value) => setSelectValueNameAddress(value ?? undefined)}
+          renderOption={(props, option) => {
+            const { key, ...optionProps } = props;
+            return (
+              <Box
+                key={key}
+                component="li"
+                sx={{ "& > Image": { mr: 2, flexShrink: 0 } }}
+                {...optionProps}
+              >
+                {option.name}
+              </Box>
+            );
+          }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Chọn địa chỉ thêm rạp"
+              slotProps={{
+                htmlInput: {
+                  ...params.inputProps,
+                  autoComplete: "new-password", // disable autocomplete and autofill
+                },
+              }}
+            />
+          )}
+        />
+      </Box>
+    </div>
+  );
   const selectIdCinemas = (
     <div>
       <Box sx={{ minWidth: 120 }}>
         <Autocomplete
           id="country-select-demo"
           sx={{ width: "100%" }}
-          options={cinemaAll ?? []}
+          options={dataCinemasByLocation ?? []}
           autoHighlight
           getOptionLabel={(cinema) => cinema.name}
           onChange={(event, value) => handleSelectIdCinema(event, value)}
@@ -252,6 +300,7 @@ export default function AddShowTimeModal() {
             THÊM SUẤT CHIẾU
           </Typography>
           <Box id="modal-modal-description" sx={{ mt: 2 }}>
+            <div className="mt-2">{selectNameAddress}</div>
             <div className="mt-2">{selectIdCinemas}</div>
             <div className="mt-2">{selectIdRoom}</div>
             <div className="mt-2">{selectIdMovie}</div>
