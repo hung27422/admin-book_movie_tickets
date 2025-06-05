@@ -11,9 +11,43 @@ import useShowTime from "@/hooks/useShowTimes";
 import { ICinemas } from "@/types/Cinemas";
 import { IMovie } from "@/types/Movies";
 import { IRoom } from "@/types/Rooms";
+import useAddress from "@/utils/hooks/useAddress";
 import { Autocomplete, Box, TextField } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";
+
+interface IAddress {
+  id: number;
+  name: string;
+}
+const AddressSelect = ({
+  address,
+  onChange,
+}: {
+  address: IAddress[];
+  onChange: (id: string) => void;
+}) => (
+  <Box sx={{ minWidth: 120 }}>
+    <Autocomplete
+      id="cinema-select"
+      options={address}
+      autoHighlight
+      getOptionLabel={(item) => item.name}
+      onChange={(_, value) => onChange(value?.name || "")}
+      renderOption={(props, option) => {
+        const { key, ...rest } = props;
+        return (
+          <Box key={key} component="li" sx={{ "& > Image": { mr: 2, flexShrink: 0 } }} {...rest}>
+            {option.name}
+          </Box>
+        );
+      }}
+      renderInput={(params) => (
+        <TextField {...params} label="Chọn rạp để lấy thông tin phòng" size="small" />
+      )}
+    />
+  </Box>
+);
 const CinemaSelect = ({
   cinemas,
   onChange,
@@ -87,6 +121,7 @@ function ShowTime() {
   const [idCinemaState, setIdCinemaState] = useState("");
   const [idRoomState, setIdRoomState] = useState("");
   const [idMovieState, setIdMovieState] = useState("");
+  const [nameAddressState, setNameAddressState] = useState("");
   //hooks
   const { page, handleChange } = usePagination();
   const { showtimes, getShowTimeByRoomIdAndMovieID, getShowTimeByRoomId } = useShowTime({
@@ -95,7 +130,11 @@ function ShowTime() {
     page: page,
     limit: 6,
   });
-  const { cinemaAll } = useCinemas();
+  const { address } = useAddress();
+  const { dataCinemasByLocation } = useCinemas({ location: nameAddressState });
+
+  console.log({ nameAddressState, dataCinemasByLocation });
+
   const { movieAll } = useMovies();
   const { getRoomsByCinemaId } = useRooms({ idCinema: idCinemaState ?? "" });
 
@@ -118,7 +157,8 @@ function ShowTime() {
       </div>
       <div className="mt-2">
         <div className="flex flex-col gap-3 mb-2">
-          <CinemaSelect cinemas={cinemaAll ?? []} onChange={setIdCinemaState} />
+          <AddressSelect address={address} onChange={setNameAddressState} />
+          <CinemaSelect cinemas={dataCinemasByLocation ?? []} onChange={setIdCinemaState} />
           <RoomSelect rooms={getRoomsByCinemaId ?? []} onChange={setIdRoomState} />
           <MovieSelect movies={movieAll ?? []} onChange={setIdMovieState} />
         </div>

@@ -6,9 +6,14 @@ interface useCinemasProps {
   name?: string;
   page?: number;
   limit?: number;
+  location?: string;
 }
-function useCinemas({ name, page, limit }: useCinemasProps = {}) {
-  const { data: cinemaAll, mutate } = useSWR<ICinemas[]>("cinemas/getAll");
+function useCinemas({ name, page, limit, location }: useCinemasProps = {}) {
+  const { data: cinemaAll, mutate } = useSWR<ICinemas[]>("/cinemas/getAll");
+
+  const { data: dataCinemasByLocation } = useSWR<ICinemas[]>(
+    location ? `/cinemas/search-by-location?location=${location}` : null
+  );
 
   const { data: cinemas, error } = useSWR<ICinemasByPageAndLimit>(
     page && limit ? `/cinemas?page=${page}&limit=${limit}` : null
@@ -47,7 +52,16 @@ function useCinemas({ name, page, limit }: useCinemasProps = {}) {
       throw error;
     }
   };
-  return { cinemas, cinemaAll, dataCinemaByName, error, addCinema, updateCinema, deleteCinema };
+  return {
+    cinemas,
+    cinemaAll,
+    dataCinemasByLocation,
+    dataCinemaByName,
+    error,
+    addCinema,
+    updateCinema,
+    deleteCinema,
+  };
 }
 
 export default useCinemas;
