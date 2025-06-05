@@ -8,20 +8,15 @@ interface useShowTimeProps {
   limit?: number;
 }
 function useShowTime({ idRoom, idMovie, page, limit }: useShowTimeProps = {}) {
-  const {
-    data: showtimes,
-    error,
-    mutate,
-  } = useSWR<IShowTimeByPageAndLimit>(
-    page && limit ? `/showtimes?page=${page}&limit=${limit}` : null
-  );
+  const showtimeKey = page && limit ? `/showtimes?page=${page}&limit=${limit}` : null;
+  const roomKey = idRoom ? `/showtimes/room/${idRoom}` : null;
+  const filterKey =
+    idRoom && idMovie ? `/showtimes/filter?roomId=${idRoom}&movieId=${idMovie}` : null;
 
-  const { data: getShowTimeByRoomId, mutate: mutateByRoom } = useSWR<IShowTime[]>(
-    idRoom ? `/showtimes/room/${idRoom}` : null
-  );
-  const { data: getShowTimeByRoomIdAndMovieID, mutate: mutateByRoomIdAndMovie } = useSWR<
-    IShowTime[]
-  >(idRoom && idMovie ? `/showtimes/filter?roomId=${idRoom}&movieId=${idMovie}` : null);
+  const { data: showtimes, error, mutate } = useSWR<IShowTimeByPageAndLimit>(showtimeKey);
+  const { data: getShowTimeByRoomId, mutate: mutateByRoom } = useSWR<IShowTime[]>(roomKey);
+  const { data: getShowTimeByRoomIdAndMovieID, mutate: mutateByRoomIdAndMovie } =
+    useSWR<IShowTime[]>(filterKey);
 
   const addShowTime = async (showtime: IShowTime) => {
     try {
@@ -64,7 +59,7 @@ function useShowTime({ idRoom, idMovie, page, limit }: useShowTimeProps = {}) {
       await showtimeServices.deleteShowtime(id);
       mutate();
       mutateByRoom();
-      mutateByRoomIdAndMovie(); // Cập nhật dữ liệu ngay lập tức
+      mutateByRoomIdAndMovie();
     } catch (error) {
       console.error("Lỗi khi xóa suất chiếu:", error);
       throw error;
