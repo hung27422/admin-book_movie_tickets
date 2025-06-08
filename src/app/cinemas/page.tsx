@@ -19,7 +19,7 @@ function Cinemas() {
   const { cinemas, dataCinemaByName } = useCinemas({
     name: debouncedValue ?? "",
     page: page,
-    limit: 10,
+    limit: 6,
   });
 
   // function

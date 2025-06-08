@@ -65,6 +65,13 @@ function useHandleUpdateShowTimeEveryDay() {
     const idsDN3 = ["6841de2ba6d3481c9688347f", "6841de3fa6d3481c968834e8"];
     const idsDN4 = ["6841dee4a6d3481c968844b2", "6841df04a6d3481c9688451b"];
     const idsDN5 = ["6841dfaea6d3481c968854bf", "6841dfc6a6d3481c96885528"];
+
+    const idsHN = ["68457433c6e200792c0b49a4", "68457422c6e200792c0b48d5"];
+    const idsHN1 = ["68457508c6e200792c0b58b3", "684574fcc6e200792c0b584a"];
+    const idsHN2 = ["684579b7c6e200792c0b77d6", "6845799fc6e200792c0b776d"];
+    const idsHN3 = ["68457a2bc6e200792c0b860d", "68457a1dc6e200792c0b85a4"];
+    const idsHN4 = ["68457a47c6e200792c0b86df", "68457a3ac6e200792c0b8676"];
+    const idsHN5 = ["68457a6ec6e200792c0b87b1", "68457a59c6e200792c0b8748"];
     // Tạo danh sách 7 ngày liên tiếp bắt đầu từ hôm nay
     const daysISO = [];
     const today = new Date();
@@ -90,6 +97,13 @@ function useHandleUpdateShowTimeEveryDay() {
     updateShowTimeEveryday(idsDN4, daysISO[4]);
     updateShowTimeEveryday(idsDN5, daysISO[5]);
 
+    updateShowTimeEveryday(idsHN, daysISO[0]);
+    updateShowTimeEveryday(idsHN1, daysISO[1]);
+    updateShowTimeEveryday(idsHN2, daysISO[2]);
+    updateShowTimeEveryday(idsHN3, daysISO[3]);
+    updateShowTimeEveryday(idsHN4, daysISO[4]);
+    updateShowTimeEveryday(idsHN5, daysISO[5]);
+
     const intervalId = setInterval(() => {
       const daysISO = [];
       const today = new Date();
@@ -108,7 +122,7 @@ function useHandleUpdateShowTimeEveryDay() {
       updateShowTimeEveryday(idsHCM3, daysISO[3]);
       updateShowTimeEveryday(idsHCM4, daysISO[4]);
       updateShowTimeEveryday(idsHCM5, daysISO[5]);
-    }, 2 * 60 * 60 * 1000);
+    }, 2 * 60 * 1000);
 
     return () => clearInterval(intervalId);
   }, [updateShowTimeEveryday]);
