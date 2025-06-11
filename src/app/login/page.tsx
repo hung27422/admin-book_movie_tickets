@@ -7,6 +7,8 @@ import { useContext, useState } from "react";
 import { Account } from "@/types/User";
 import { AuthContext } from "@/contexts/AuthContextProvider/AuthContextProvider";
 import { usePathname, useRouter } from "next/navigation";
+import { Checkbox, FormControlLabel } from "@mui/material";
+import { pink } from "@mui/material/colors";
 function Login() {
   const router = useRouter();
   //context
@@ -16,7 +18,7 @@ function Login() {
   //state
   const [valueAccount, setValueAccount] = useState<Account>({ username: "", password: "" });
   const { username, password } = valueAccount;
-
+  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
   // function
   const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
@@ -43,6 +45,12 @@ function Login() {
             sizes="(max-width: 768px) 100px, auto"
           />
           <h2 className="text-3xl font-semibold tracking-widest mt-4">ĐĂNG NHẬP</h2>
+          <div>
+            <p className="text-gray-500 text-base mt-2">
+              Thông tin test: Tài khoản: <span className="text-blue-500">admin</span> - Mật khẩu:{" "}
+              <span className="text-blue-500">123456</span>
+            </p>
+          </div>
         </div>
         <div className="flex flex-col items-center justify-center w-full">
           <TextFieldInput
@@ -56,8 +64,15 @@ function Login() {
             name="password"
             value={password}
             onChange={handleChangeValue}
+            type={isShowPassword ? "text" : "password"}
           />
-
+          <FormControlLabel
+            sx={{ textAlign: "left", width: "100%", marginLeft: "0.5rem" }}
+            control={
+              <Checkbox onChange={() => setIsShowPassword(!isShowPassword)} defaultChecked />
+            }
+            label="Hiển thị mật khẩu"
+          />
           <div className="mt-4">
             <Button color="primary" title="Đăng Nhập" variant="contained" onClick={handleLogin} />
           </div>
