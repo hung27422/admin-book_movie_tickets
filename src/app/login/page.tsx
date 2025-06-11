@@ -8,7 +8,6 @@ import { Account } from "@/types/User";
 import { AuthContext } from "@/contexts/AuthContextProvider/AuthContextProvider";
 import { usePathname, useRouter } from "next/navigation";
 import { Checkbox, FormControlLabel } from "@mui/material";
-import { pink } from "@mui/material/colors";
 function Login() {
   const router = useRouter();
   //context
