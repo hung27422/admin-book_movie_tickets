@@ -7,7 +7,11 @@ interface useMoviesProps {
   limit?: number;
 }
 function useMovies({ title, page, limit }: useMoviesProps = {}) {
-  const { data: movieAll, mutate } = useSWR<IMovie[]>("/movies/getAll");
+  const {
+    data: movieAll,
+    mutate,
+    isLoading: isLoadingGetAllMovie,
+  } = useSWR<IMovie[]>("/movies/getAll");
   const { data: movies, error } = useSWR<IMovieByPageAndLimit>(
     page && limit ? `/movies?page=${page}&limit=${limit}` : null
   );
@@ -46,7 +50,16 @@ function useMovies({ title, page, limit }: useMoviesProps = {}) {
     }
   };
 
-  return { movies, movieAll, dataSearchMovies, error, addMovie, updateMovie, deleteMovie };
+  return {
+    movies,
+    movieAll,
+    dataSearchMovies,
+    isLoadingGetAllMovie,
+    error,
+    addMovie,
+    updateMovie,
+    deleteMovie,
+  };
 }
 
 export default useMovies;

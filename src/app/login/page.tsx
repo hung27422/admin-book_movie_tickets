@@ -8,12 +8,14 @@ import { Account } from "@/types/User";
 import { AuthContext } from "@/contexts/AuthContextProvider/AuthContextProvider";
 import { usePathname, useRouter } from "next/navigation";
 import { Checkbox, FormControlLabel } from "@mui/material";
+import useMovies from "@/hooks/useMovies";
 function Login() {
   const router = useRouter();
   //context
   const { login } = useContext(AuthContext);
   const pathname = usePathname();
-
+  //hooks
+  const { isLoadingGetAllMovie, movieAll } = useMovies();
   //state
   const [valueAccount, setValueAccount] = useState<Account>({ username: "", password: "" });
   const { username, password } = valueAccount;
@@ -31,6 +33,16 @@ function Login() {
       console.log(dataLogin.message);
     }
   };
+  if (isLoadingGetAllMovie && !movieAll) {
+    return (
+      <div className="bg-[var(--bg-page)] h-screen flex items-center justify-center">
+        <div className="flex flex-col items-center justify-center bg-white p-10 rounded-md w-1/3">
+          <h2 className="text-2xl font-semibold tracking-widest">Đang tải...</h2>
+          <span>Vui lòng đợi giây lát...</span>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="bg-[var(--bg-page)] h-screen flex items-center justify-center">
       <div className="flex flex-col items-center justify-center bg-white p-10 rounded-md w-1/3">
