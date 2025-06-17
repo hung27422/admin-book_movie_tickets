@@ -79,9 +79,7 @@ function Login() {
           />
           <FormControlLabel
             sx={{ textAlign: "left", width: "100%", marginLeft: "0.5rem" }}
-            control={
-              <Checkbox onChange={() => setIsShowPassword(!isShowPassword)} defaultChecked />
-            }
+            control={<Checkbox onChange={() => setIsShowPassword(!isShowPassword)} />}
             label="Hiển thị mật khẩu"
           />
           <div className="mt-4">
